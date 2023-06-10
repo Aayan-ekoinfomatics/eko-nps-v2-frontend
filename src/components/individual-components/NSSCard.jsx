@@ -12,13 +12,11 @@ import nssAPIdata from "../../recoil/atoms/nssAPIdata";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { exportComponentAsPNG } from "react-component-export-image";
-import nssData from '../../helpers/nssMockApi.json'
+import nssData from "../../helpers/nssMockApi.json";
 import axios from "axios";
 import { VITE_BASE_LINK } from "../../../baseLink";
 
 const NSSCard = () => {
-
-
   const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
   const [apiData, setApiData] = useState();
 
@@ -26,18 +24,18 @@ const NSSCard = () => {
 
   useEffect(() => {
     // setApiData(nssData?.data);
-    
-    axios.post(VITE_BASE_LINK + 'google/netSentimentCard').then((response) => {
-        console.log(response?.data);
-        setApiData(response?.data?.data)
-    })
+
+    axios.post(VITE_BASE_LINK + "google/netSentimentCard").then((response) => {
+      console.log(response?.data);
+      setApiData(response?.data?.data);
+    });
   }, []);
 
   const NPSComponent = useRef();
 
   return (
     <div
-      className="p-2 md:py-5 2xl:px-5 w-full border xl:max-w-[450px] rounded-lg bg-white "
+      className="p-2 md:py-5 2xl:px-5 w-full border  rounded-lg bg-white "
       ref={NPSComponent}
     >
       {!apiData?.nss && (
@@ -109,89 +107,15 @@ const NSSCard = () => {
               </div>
             </div>
           </div>
-          <div className="flex gap-3 md:gap-5 justify-between xl:gap-2">
+          <div className="flex flex-col xl:flex-row  gap-3 md:gap-5 justify-between xl:gap-2">
             {/* <div className="flex justify-start items-center gap-3 md:gap-5"> */}
 
-            <div className="w-[70%] sm:w-fit grid grid-cols-2 sm:grid-cols-4 place-items-center gap-4 sm:gap-8 pt-4 sm:pt-0">
-              <div className="text-center flex flex-col justify-center items-center gap-2">
-                <img src={PositiveIcon} alt="positive" />
-                <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  {apiData?.nss?.positive < 1 ? (
-                    apiData?.nss?.positive + "%"
-                  ) : (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss?.positive}
-                      separator=","
-                      suffix="%"
-                    />
-                  )}
-                </h1>
-                <p className=" opacity-60 text-xs font-medium">Positives</p>
-              </div>
-
-              <div className="text-center flex flex-col justify-center items-center gap-2">
-                <img src={NeutralIcon} alt="neutral" />
-                <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  {apiData?.nss?.neutral < 1 ? (
-                    apiData?.nss?.neutral + "%"
-                  ) : (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss?.neutral}
-                      separator=","
-                      suffix="%"
-                    />
-                  )}
-                </h1>
-                <p className=" opacity-60 text-xs font-medium">Neutrals</p>
-              </div>
-
-              <div className="text-center flex flex-col justify-center items-center gap-2">
-                <img src={NegativeIcon} alt="passives" />
-                <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  {apiData?.nss?.negative < 1 ? (
-                    apiData?.nss?.negative + "%"
-                  ) : (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss?.negative}
-                      separator=","
-                      suffix="%"
-                    />
-                  )}
-                </h1>
-                <p className=" opacity-60 text-xs font-medium">Negatives</p>
-              </div>
-
-              <div className="text-center flex flex-col justify-center items-center gap-2">
-                <img src={ExtremeIcon} alt="extremes" />
-                <h1 className="text-sm md:text-xl font-medium opacity-80">
-                  {apiData?.nss?.extreme < 1 ? (
-                    apiData?.nss?.extreme + "%"
-                  ) : (
-                    <CountUp
-                      start={0}
-                      duration={1}
-                      end={apiData?.nss?.extreme}
-                      separator=","
-                      suffix="%"
-                    />
-                  )}
-                </h1>
-                <p className=" opacity-60 text-xs font-medium">Extremes</p>
-              </div>
-            </div>
-
-            {/* Graph */}
-            <div className="xl:ml-1 relative">
+            {/*  Pie Graph */}
+            <div className="xl:ml-1 relative w-full xl:w-[50%] ">
               <div className="absolute  top-[50%]  left-[50%] translate-x-[-50%] translate-y-[-50%]">
                 <div className="flex flex-col justify-center items-center">
-                  <h1 className="text-[10px] opacity-40">Sentiment</h1>
-                  <p className="opacity-80 text-xs md:text-base">
+                  <h1 className="text-sm">Sentiment</h1>
+                  <p className="opacity-80 text-base">
                     <CountUp
                       start={0}
                       duration={1}
@@ -201,14 +125,10 @@ const NSSCard = () => {
                   </p>
                 </div>
               </div>
-              <div className=" w-[80px] md:w-[110px] ">
-                <ResponsiveContainer height={110} width="100%">
+              <div className=" w-full ">
+                <ResponsiveContainer height={200} width="100%">
                   <PieChart>
-                    <Tooltip
-                      cursor={false}
-                      content={<CustomTooltip />}
-                      position={{ y: -0, x: -150 }}
-                    />
+                    <Tooltip cursor={false} content={<CustomTooltip />} />
                     <Pie
                       data={apiData?.nss_pie}
                       dataKey="percentage"
@@ -230,6 +150,80 @@ const NSSCard = () => {
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="w-full xl:w-[50%]  grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-2 place-items-center gap-4 sm:gap-8 pt-4 sm:pt-0 pb-5">
+              <div className="text-center flex flex-col justify-center items-center gap-2 ">
+                <img src={PositiveIcon} alt="positive" />
+                <h1 className="text-xl  font-medium opacity-80">
+                  {apiData?.nss?.positive < 1 ? (
+                    apiData?.nss?.positive + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nss?.positive}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
+                </h1>
+                <p className=" opacity-60 text-xs font-medium">Positives</p>
+              </div>
+
+              <div className="text-center flex flex-col justify-center items-center gap-2 ">
+                <img src={NeutralIcon} alt="neutral" />
+                <h1 className="text-xl  font-medium opacity-80">
+                  {apiData?.nss?.neutral < 1 ? (
+                    apiData?.nss?.neutral + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nss?.neutral}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
+                </h1>
+                <p className=" opacity-60 text-xs font-medium">Neutrals</p>
+              </div>
+
+              <div className="text-center flex flex-col justify-center items-center gap-2 ">
+                <img src={NegativeIcon} alt="passives" />
+                <h1 className="text-xl  font-medium opacity-80">
+                  {apiData?.nss?.negative < 1 ? (
+                    apiData?.nss?.negative + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nss?.negative}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
+                </h1>
+                <p className=" opacity-60 text-xs font-medium">Negatives</p>
+              </div>
+
+              <div className="text-center flex flex-col justify-center items-center gap-2 ">
+                <img src={ExtremeIcon} alt="extremes" />
+                <h1 className="text-xl  font-medium opacity-80">
+                  {apiData?.nss?.extreme < 1 ? (
+                    apiData?.nss?.extreme + "%"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      duration={1}
+                      end={apiData?.nss?.extreme}
+                      separator=","
+                      suffix="%"
+                    />
+                  )}
+                </h1>
+                <p className=" opacity-60 text-xs font-medium">Extremes</p>
               </div>
             </div>
           </div>

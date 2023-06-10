@@ -12,13 +12,11 @@ import nssAPIdata from "../../recoil/atoms/nssAPIdata";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { exportComponentAsPNG } from "react-component-export-image";
-import nssData from '../../helpers/nssMockApi.json'
+import nssData from "../../helpers/nssMockApi.json";
 import axios from "axios";
 import { VITE_BASE_LINK } from "../../../baseLink";
 
 const NPSSentimentCard = () => {
-
-
   const [nssApiData, setNssApiData] = useRecoilState(nssAPIdata);
   const [apiData, setApiData] = useState();
 
@@ -26,11 +24,11 @@ const NPSSentimentCard = () => {
 
   useEffect(() => {
     // setApiData(nssData?.data);
-    
-    axios.post(VITE_BASE_LINK + 'nps/netSentimentCard').then((response) => {
-        console.log(response?.data);
-        setApiData(response?.data?.data)
-    })
+
+    axios.post(VITE_BASE_LINK + "nps/netSentimentCard").then((response) => {
+      console.log(response?.data);
+      setApiData(response?.data?.data);
+    });
   }, []);
 
   const NPSComponent = useRef();
@@ -109,10 +107,10 @@ const NPSSentimentCard = () => {
               </div>
             </div>
           </div>
-          <div className="flex  gap-3 md:gap-5 justify-between xl:gap-2">
+          <div className="flex flex-col-reverse  gap-3 md:gap-5 justify-between xl:gap-5">
             {/* <div className="flex justify-start items-center gap-3 md:gap-5"> */}
 
-            <div className="w-[70%] lg:w-fit pt-2 sm:pt-0 grid grid-cols-2 sm:grid-cols-4 place-items-center gap-4 lg:gap-8 pl-1">
+            <div className="w-full  pt-2 sm:pt-0 grid grid-cols-4 place-items-center gap-4 lg:gap-8 pl-1">
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={PositiveIcon} alt="positive" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
@@ -187,11 +185,11 @@ const NPSSentimentCard = () => {
             </div>
 
             {/* Graph */}
-            <div className="xl:ml-1 relative">
+            <div className="xl:ml-1 relative w-full flex justify-center items-center">
               <div className="absolute  top-[50%]  left-[50%] translate-x-[-50%] translate-y-[-50%]">
                 <div className="flex flex-col justify-center items-center">
-                  <h1 className="text-[10px] opacity-40">Sentiment</h1>
-                  <p className="opacity-80 text-xs md:text-base">
+                  <h1 className="text-[10px] ">Sentiment</h1>
+                  <p className="text-base">
                     <CountUp
                       start={0}
                       duration={1}
@@ -201,14 +199,10 @@ const NPSSentimentCard = () => {
                   </p>
                 </div>
               </div>
-              <div className=" w-[80px] md:w-[110px] ">
-                <ResponsiveContainer height={110} width="100%">
+              <div className="w-full ">
+                <ResponsiveContainer height={150} width="100%">
                   <PieChart>
-                    <Tooltip
-                      cursor={false}
-                      content={<CustomTooltip />}
-                      position={{ y: -0, x: -150 }}
-                    />
+                    <Tooltip cursor={false} content={<CustomTooltip />} />
                     <Pie
                       data={apiData?.nss_pie}
                       dataKey="percentage"

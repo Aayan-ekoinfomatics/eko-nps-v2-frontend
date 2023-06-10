@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-// import MockApiNPSData from "../../../../mock_API/NPS/NPS Main Dashboard/NPSCard.json";
+// import MockApiNPSData from "../../../../mock_API/NPS/NPS Main Dashboard/NPSCardForConsolidatedDashboard.json";
 import CountUp from "react-countup";
 import PromoterIcon from "../../assets/img/NPS Dashboard/greenMan.svg";
 import PassiveIcon from "../../assets/img/NPS Dashboard/darkGrayMan.svg";
@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 import { VITE_BASE_LINK } from "../../../baseLink";
 
-const NPSCard = () => {
+const NPSCardForConsolidatedDashboard = () => {
   const [npsApiData, setNpsApiData] = useRecoilState(npsAPIdata);
   const [apiData, setApiData] = useState();
   const [loaderStatusValue, setLoaderStatusValue] =
@@ -103,10 +103,10 @@ const NPSCard = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col-reverse  justify-between   gap-3 md:gap-5  ">
+          <div className="flex flex-col-reverse lg:flex-row justify-between   gap-3 md:gap-10 w-full ">
             {/* <div className="flex justify-start items-center gap-3 md:gap-5"> */}
 
-            <div className="grid grid-cols-3 pl-2 pt-2 sm:pl-0 sm:pt-0  gap-4 md:gap-8  ">
+            <div className="grid grid-cols-3 pl-2 pt-2 sm:pl-0 sm:pt-0  gap-4 md:gap-8 lg:w-[70%]  ">
               <div className="text-center flex flex-col justify-center items-center gap-2">
                 <img src={PromoterIcon} alt="promoters" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
@@ -125,7 +125,7 @@ const NPSCard = () => {
                 <p className=" opacity-60 text-xs font-medium">Promoters</p>
               </div>
 
-              <div className="text-center flex flex-col justify-center items-center gap-2">
+              <div className="text-center flex flex-col justify-center items-center gap-2 ">
                 <img src={PassiveIcon} alt="passives" />
                 <h1 className="text-sm md:text-xl font-medium opacity-80">
                   {apiData?.nps?.passive < 1 ? (
@@ -163,7 +163,7 @@ const NPSCard = () => {
             </div>
 
             {/* Graph */}
-            <div className="relative    flex justify-center items-center ">
+            <div className="relative    flex justify-center items-center lg:w-[30%]">
               <div className="absolute  top-[50%]  left-[50%] translate-x-[-50%] translate-y-[-50%] ">
                 <div className="flex flex-col justify-center items-center">
                   <h1 className="text-[12px] opacity-40">NPS</h1>
@@ -182,7 +182,11 @@ const NPSCard = () => {
               <div className="w-full ">
                 <ResponsiveContainer height={150} width="100%">
                   <PieChart className="">
-                    <Tooltip cursor={false} content={<CustomTooltip />} />
+                    <Tooltip
+                      cursor={false}
+                      content={<CustomTooltip />}
+                      position={{ y: -0, x: -150 }}
+                    />
                     <Pie
                       // data={MockApiNPSData.nps_pie}
                       data={apiData?.nps_pie}
@@ -214,7 +218,7 @@ const NPSCard = () => {
   );
 };
 
-export default NPSCard;
+export default NPSCardForConsolidatedDashboard;
 
 function CustomTooltip({ active, payload, label }) {
   const [npsApiData, setNpsApiData] = useRecoilState(npsAPIdata);
