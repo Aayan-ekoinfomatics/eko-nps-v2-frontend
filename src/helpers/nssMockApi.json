@@ -1,0 +1,42 @@
+{
+    "status": true,
+    "status_code": 200,
+    "title": "OK",
+    "message": "Data for net sentiment card",
+    "data": {
+      "nss": {
+        "nss_score": 15.74,
+        "total": 1277,
+        "positive": 16.6,
+        "total_positive": 212,
+        "negative": 0.16,
+        "total_negative": 2,
+        "extreme": 0.7,
+        "total_extreme": 9,
+        "neutral": 82.54,
+        "total_neutral": 1054
+      },
+      "nss_pie": [
+        {
+          "label": "Positive",
+          "percentage": 16.6,
+          "color": "#00AC69"
+        },
+        {
+          "label": "Negative",
+          "percentage": 0.16,
+          "color": "#EE6123"
+        },
+        {
+          "label": "Extreme",
+          "percentage": 0.7,
+          "color": "#DB2B39"
+        },
+        {
+          "label": "Neutral",
+          "percentage": 82.54,
+          "color": "#939799"
+        }
+      ]
+    }
+  }
