@@ -33,14 +33,16 @@ const NPSTrend = () => {
   const [neutrals, setNeutrals] = useState(false);
   const [negative, setNegative] = useState(false);
   const [extreme, setExtreme] = useState(false);
-  const [nssScore, setNssScore] = useState(true);
 
   const [apiData, setApiData] = useState();
 
   useEffect(() => {
     // setApiData(nssOverTimeAPIData);
-    axios.post(VITE_BASE_LINK + "google/nss_over_time").then((response) => {
-      // console.log(response?.data);
+    // axios.post(VITE_BASE_LINK + "google/nss_over_time").then((response) => {
+    //   setApiData(response?.data?.data);
+    // });
+
+    axios.post(VITE_BASE_LINK + "nps/nps_over_time").then((response) => {
       setApiData(response?.data?.data);
     });
   }, []);
@@ -87,57 +89,13 @@ const NPSTrend = () => {
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart
                 key={graphName}
-                data={apiData?.nss_over_time}
+                data={apiData?.nps_over_time}
                 margin={{ top: 0, right: 20, left: -20, bottom: 0 }}
               >
                 <defs>
-                  <linearGradient id="nssGradient" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id="npsGradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#009DFF" stopOpacity={0.8} />
                     <stop offset="95%" stopColor="#009DFF" stopOpacity={0.05} />
-                  </linearGradient>
-
-                  <linearGradient
-                    id="positiveGradient"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="5%" stopColor="#00AC69" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#00AC69" stopOpacity={0.05} />
-                  </linearGradient>
-
-                  <linearGradient
-                    id="neutralGradient"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="5%" stopColor="#939799" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#939799" stopOpacity={0.05} />
-                  </linearGradient>
-
-                  <linearGradient
-                    id="negativeGradient"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="5%" stopColor="#EE6123" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#EE6123" stopOpacity={0.05} />
-                  </linearGradient>
-
-                  <linearGradient
-                    id="extremeGradient"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="5%" stopColor="#DB2B39" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#DB2B39" stopOpacity={0.05} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid
@@ -163,65 +121,16 @@ const NPSTrend = () => {
                   margin={{ right: 20 }}
                 />
                 <Tooltip cursor={false} content={<CustomTooltip />} />
-                {nssScore && (
-                  <Area
-                    type="monotone"
-                    name="sentiments"
-                    dataKey="nss"
-                    stroke="#0094E0 "
-                    dot={false}
-                    strokeWidth={4}
-                    fill="url(#nssGradient)"
-                  />
-                )}
 
-                {positives && (
-                  <Area
-                    type="monotone"
-                    name="positive"
-                    dataKey="positive"
-                    stroke="#00AC69 "
-                    dot={false}
-                    strokeWidth={4}
-                    fill="url(#positiveGradient)"
-                  />
-                )}
-
-                {neutrals && (
-                  <Area
-                    type="monotone"
-                    name="neutral"
-                    dataKey="neutral"
-                    stroke="#939799 "
-                    dot={false}
-                    strokeWidth={4}
-                    fill="url(#neutralGradient)"
-                  />
-                )}
-
-                {negative && (
-                  <Area
-                    type="monotone"
-                    name="negative"
-                    dataKey="negative"
-                    stroke="#EE6123 "
-                    dot={false}
-                    strokeWidth={4}
-                    fill="url(#negativeGradient)"
-                  />
-                )}
-
-                {extreme && (
-                  <Area
-                    type="monotone"
-                    name="extreme"
-                    dataKey="extreme"
-                    stroke="#DB2B39 "
-                    dot={false}
-                    strokeWidth={4}
-                    fill="url(#extremeGradient)"
-                  />
-                )}
+                <Area
+                  type="monotone"
+                  name="avg nps"
+                  dataKey="nps"
+                  stroke="#0094E0 "
+                  dot={false}
+                  strokeWidth={4}
+                  fill="url(#npsGradient)"
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>

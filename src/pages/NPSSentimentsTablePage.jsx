@@ -1,21 +1,21 @@
-import React from 'react'
-import NSSDetailedCard from '../components/individual-components/NSSDetailedCard'
-import NSSAllCard from '../components/individual-components/NSSAllCard'
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import SecondaryHeader from '../components/global-components/SecondaryHeader';
+import React from "react";
+import NSSDetailedCard from "../components/individual-components/NSSDetailedCard";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import SecondaryHeader from "../components/global-components/SecondaryHeader";
+import NPSSentiment from "../components/individual-components/NPSSentiment";
 
 const NPSSentimentsTablePage = () => {
   return (
     <div>
-    <SecondaryHeader />
-        <div className='p-4'>
+      <SecondaryHeader />
+      <div className="p-4">
         <NSSDetailedCard />
-        </div>
-        <div className='p-4'>
-        <NSSAllCard />
-        </div>
+      </div>
+      <div className="p-4">
+        <NPSSentiment />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default NPSSentimentsTablePage
+export default NPSSentimentsTablePage;

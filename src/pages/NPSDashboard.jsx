@@ -28,6 +28,7 @@ import NPSSentimentCard from "../components/individual-components/NPSSentimentCa
 import PuffLoader from "react-spinners/PuffLoader";
 import NSSOvertimeNPS from "../components/individual-components/NSSOvertimeNPS";
 import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
+import NPSvsSentiment from "../components/individual-components/NPSvsSentiment";
 
 const NPSDashboard = () => {
   const [npsDataCard, setnpsDataCard] = useState();
@@ -125,8 +126,10 @@ const NPSDashboard = () => {
         </div>
 
         {/* bar chart */}
-        <div className="w-full p-4">
+
+        <div className="w-full p-4 flex flex-col 2xl:flex-row gap-5 ">
           <NSSOvertimeNPS />
+          <NPSvsSentiment />
         </div>
 
         {/* comments & alerts  */}
