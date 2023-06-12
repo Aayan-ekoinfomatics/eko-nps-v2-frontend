@@ -24,7 +24,7 @@ const NPSvsSentiment = () => {
 
   useEffect(() => {
     axios.post(VITE_BASE_LINK + "nps/nps_vs_sentiment").then((response) => {
-      // console.log(response?.data);
+      console.log("nps_vs_sentiment:", response?.data);
       setApiData(response?.data?.data);
     });
   }, []);
@@ -88,7 +88,7 @@ const NPSvsSentiment = () => {
                   opacity={0.5}
                 />
                 <XAxis
-                  dataKey="sentiment_label"
+                  dataKey="sentiment"
                   fontSize={12}
                   axisLine={false}
                   tickLine={false}
@@ -148,7 +148,7 @@ function CustomTooltip({ active, payload, label }) {
     return (
       <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-[1rem] shadow-2xl shadow-[#000000]">
         <h1 className="capitalize mr-2 text-[13px] mb-2 font-bold ">
-          {payload[0]?.payload?.sentiment_label} Sentiment
+          {payload[0]?.payload?.sentiment} Sentiment
         </h1>
         {payload?.map((data) => (
           <div key={Math.random()} className="">

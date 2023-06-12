@@ -1,27 +1,84 @@
-import React, { useEffect } from "react";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import eko_logo from "../../assets/icons/eko_logo.png";
-import CampaignIcon from "@mui/icons-material/Campaign";
-import { Link, useLocation, useParams } from "react-router-dom";
-import GoogleIcon from "@mui/icons-material/Google";
-import GolfCourseIcon from "@mui/icons-material/GolfCourse";
-import HexagonOutlinedIcon from "@mui/icons-material/HexagonOutlined";
-import MoodOutlinedIcon from "@mui/icons-material/MoodOutlined";
-import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
+// routing
+import { Link, useLocation } from "react-router-dom";
+// state management (recoil.js)
 import { useRecoilState } from "recoil";
 import SidebarAtom from "../../recoil/global-atoms/SidebarAtom";
+// local assets
+import eko_logo from "../../assets/icons/eko_logo.png";
+// material ui
+import CampaignIcon from "@mui/icons-material/Campaign";
+import GoogleIcon from "@mui/icons-material/Google";
+import MoodOutlinedIcon from "@mui/icons-material/MoodOutlined";
+import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 
 const Sidebar = () => {
-  const location = useLocation();
-
+  // global variables
   const [sidebarToggle, setSidebarToggle] = useRecoilState(SidebarAtom);
-
-  // useEffect(() => {
-  //     console.log(sidebarToggle)
-  // }, [])
-
+  // local variables
+  const location = useLocation();
+  const sidebarData = [
+    {
+      title: "Dashboard",
+      icon: <DashboardRoundedIcon fontSize="small" className="text-sky-600" />,
+      path: "/",
+    },
+    {
+      title: " Google Reviews",
+      icon: <GoogleIcon fontSize="small" className="text-sky-600" />,
+      path: "/google-dashboard",
+      child: [
+        {
+          title: "Sentiments",
+          icon: (
+            <MoodOutlinedIcon
+              fontSize="extraSmall"
+              className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
+            />
+          ),
+          path: "/google-dashboard/sentiments",
+        },
+        {
+          title: "Comments",
+          icon: (
+            <RateReviewOutlinedIcon
+              fontSize="extraSmall"
+              className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
+            />
+          ),
+          path: "/google-dashboard/comments",
+        },
+      ],
+    },
+    {
+      title: "Net Promoter Score",
+      icon: <CampaignIcon fontSize="small" className="text-sky-600" />,
+      path: "/nps-dashboard",
+      child: [
+        {
+          title: "Sentiments",
+          icon: (
+            <MoodOutlinedIcon
+              fontSize="extraSmall"
+              className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
+            />
+          ),
+          path: "/nps-dashboard/sentiments",
+        },
+        {
+          title: "Comments",
+          icon: (
+            <RateReviewOutlinedIcon
+              fontSize="extraSmall"
+              className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
+            />
+          ),
+          path: "/nps-dashboard/comments",
+        },
+      ],
+    },
+  ];
   return (
     <div
       className={`w-full ${
@@ -29,6 +86,7 @@ const Sidebar = () => {
       } sm:max-w-[60px] lg:max-w-[200px] 2xl:max-w-[230px] fixed bg-sky-50 h-screen transition-all duration-200 ease-out z-[100]`}
     >
       <div className="w-full">
+        {/* close icon in small devices */}
         <div className="block sm:hidden w-full pl-5 pt-5">
           <span
             className="cursor-pointer z-[250]"
@@ -37,6 +95,7 @@ const Sidebar = () => {
             <CloseRoundedIcon fontSize="large" className="text-sky-600" />
           </span>
         </div>
+        {/* product/brand logo */}
         <div className="w-full">
           <div className="w-full flex justify-center items-center h-[100px]">
             <img
@@ -47,134 +106,64 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div className="w-full flex flex-col items-center gap-2 lg:items-stretch relative mb-6 lg:pl-4 mt-[20px]">
-          <Link
-            onClick={() => setSidebarToggle(false)}
-            to="/"
-            className={`w-full justify-center flex items-center gap-2 mb-2 ${
-              location?.pathname === "/"
-                ? " border-r-[5px] border-[var(--secondary-color)]"
-                : ""
-            }`}
-          >
-            <DashboardRoundedIcon fontSize="small" className="text-sky-600" />
-            <h1
-              className={`sm:hidden lg:inline-block sm:w-full transition-all duration-200 ease-out py-1 text-md  `}
-            >
-              Dashboard
-            </h1>
-          </Link>
-          <Link
-            onClick={() => setSidebarToggle(false)}
-            to="/google-dashboard"
-            className={`w-full justify-center flex items-center gap-2 mb-2 ${
-              location?.pathname === "/google-dashboard"
-                ? " border-r-[5px] border-[var(--secondary-color)]"
-                : ""
-            }`}
-          >
-            <GoogleIcon fontSize="small" className="text-sky-600" />
-            <h1
-              className={`sm:hidden lg:inline-block sm:w-full transition-all duration-200 ease-out py-1 text-md  `}
-            >
-              Google Reviews
-            </h1>
-          </Link>
-          <Link
-            onClick={() => setSidebarToggle(false)}
-            to="/sentiments"
-            className={`w-full py-[1px] lg:py-0 justify-center flex items-center gap-2 ${
-              location?.pathname?.includes("/sentiments")
-                ? " border-r-[5px] border-[var(--secondary-color)]"
-                : ""
-            }`}
-          >
-            <MoodOutlinedIcon
-              fontSize="extraSmall"
-              className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
-            />
-            <h1
-              className={`sm:hidden lg:inline-block sm:w-full text-sm text-gray-500 cursor-pointer active:scale-95 transition-all duration-300 ease-out hover:text-gray-80 my-[8px] `}
-            >
-              Sentiments
-            </h1>
-          </Link>
-          <Link
-            onClick={() => setSidebarToggle(false)}
-            to="/comments"
-            className={`w-full py-[1px] lg:py-0 justify-center flex items-center gap-2 ${
-              location?.pathname?.includes("/comments")
-                ? " border-r-[5px] border-[var(--secondary-color)]"
-                : ""
-            }`}
-          >
-            <RateReviewOutlinedIcon
-              fontSize="extraSmall"
-              className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
-            />
-            <h1
-              className={`sm:hidden lg:inline-block sm:w-full text-sm text-gray-500 cursor-pointer active:scale-95 transition-all duration-300 ease-out hover:text-gray-80 my-[8px]`}
-            >
-              Comments
-            </h1>
-          </Link>
-        </div>
+        {/* sidebar links  */}
+        <div className="w-full flex flex-col items-center gap-5 lg:items-stretch relative mb-6 lg:pl-4 mt-[20px] ">
+          {sidebarData.map((item, index) => {
+            return (
+              <>
+                {/* parent link */}
+                <Link
+                  key={index}
+                  to={item.path}
+                  onClick={() => setSidebarToggle(false)}
+                  className={`w-full lg:justify-between justify-center flex items-center gap-2 ${
+                    location?.pathname === item.path
+                      ? " border-r-[5px] border-[var(--secondary-color)]"
+                      : ""
+                  }`}
+                >
+                  <div
+                    className={`w-[200px]   sm:w-auto lg:w-[200px] mx-auto justify-start sm:justify-between lg:justify-start  items-center flex gap-5 ${
+                      item?.child?.length > 0 ? "" : ""
+                    }`}
+                  >
+                    <div className="">{item.icon}</div>
+                    <h1 className="sm:hidden lg:inline-block sm:w-full transition-all duration-200 ease-out py-1 text-md text-sky-600">
+                      {item.title}
+                    </h1>
+                  </div>
+                </Link>
 
-        <div className="w-full flex flex-col items-center gap-2 lg:items-stretch relative lg:pl-4">
-          <Link
-            onClick={() => setSidebarToggle(false)}
-            to="/nps-dashboard"
-            className={`w-full justify-center flex items-center gap-2 mb-2 ${
-              location?.pathname?.includes("/nps-dashboard")
-                ? " border-r-[5px] border-[var(--secondary-color)]"
-                : ""
-            }`}
-          >
-            <CampaignIcon fontSize="medium" className="text-sky-600" />
-            <h1
-              className={`sm:hidden lg:inline-block sm:w-full transition-all duration-200 ease-out py-1 text-md  `}
-            >
-              Net Promoter Score
-            </h1>
-          </Link>
-          <Link
-            onClick={() => setSidebarToggle(false)}
-            to="/nps-sentiments"
-            className={`w-full py-[1px] lg:py-0 justify-center flex items-center gap-2 ${
-              location?.pathname?.includes("/nps-sentiments")
-                ? " border-r-[5px] border-[var(--secondary-color)]"
-                : ""
-            }`}
-          >
-            <MoodOutlinedIcon
-              fontSize="extraSmall"
-              className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
-            />
-            <h1
-              className={`sm:hidden lg:inline-block sm:w-full text-sm text-gray-500 cursor-pointer active:scale-95 transition-all duration-300 ease-out hover:text-gray-80 my-[8px] ' : ''}`}
-            >
-              Sentiments
-            </h1>
-          </Link>
-          <Link
-            onClick={() => setSidebarToggle(false)}
-            to="/nps-comments"
-            className={`w-full py-[1px] lg:py-0 justify-center flex items-center gap-2 ${
-              location?.pathname?.includes("/nps-comments")
-                ? " border-r-[5px] border-[var(--secondary-color)]"
-                : ""
-            }`}
-          >
-            <RateReviewOutlinedIcon
-              fontSize="extraSmall"
-              className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
-            />
-            <h1
-              className={`sm:hidden lg:inline-block sm:w-full text-sm text-gray-500 cursor-pointer active:scale-95 transition-all duration-300 ease-out hover:text-gray-80 my-[8px] ' : ''}`}
-            >
-              Comments
-            </h1>
-          </Link>
+                {/* child link */}
+                {item?.child &&
+                  item?.child?.map((child, c_index) => {
+                    return (
+                      <Link
+                        key={c_index}
+                        to={child?.path}
+                        onClick={() => setSidebarToggle(false)}
+                        className={`w-full lg:justify-between justify-center flex items-center gap-2 ${
+                          location?.pathname === child?.path
+                            ? " border-r-[5px] border-[var(--secondary-color)]"
+                            : ""
+                        }`}
+                      >
+                        <div
+                          className={`w-[200px] pl-5 sm:pl-0 sm:w-auto lg:w-[200px] mx-auto justify-start sm:justify-between lg:justify-start  items-center flex gap-5 ${
+                            item?.child?.length > 0 ? "" : ""
+                          }`}
+                        >
+                          <div className="">{child?.icon}</div>
+                          <h1 className="sm:hidden lg:inline-block sm:w-full transition-all duration-200 ease-out py-1 text-md text-sky-600">
+                            {child?.title}
+                          </h1>
+                        </div>
+                      </Link>
+                    );
+                  })}
+              </>
+            );
+          })}
         </div>
       </div>
     </div>

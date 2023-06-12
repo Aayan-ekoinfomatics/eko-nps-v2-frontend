@@ -33,10 +33,10 @@ const NSSOvertimeNPS = () => {
   );
 
   useEffect(() => {
-    axios.post(VITE_BASE_LINK + 'nps/nss_over_time').then((response) => {
-        // console.log(response?.data);
-        setApiData(response?.data?.data)
-    })
+    axios.post(VITE_BASE_LINK + "nps/nss_over_time").then((response) => {
+      // console.log(response?.data);
+      setApiData(response?.data?.data);
+    });
     // setApiData(nssOverTimeAPIData);
     // console.log("nssOverTimeAPIData:");
     // console.log(nssOverTimeAPIData);

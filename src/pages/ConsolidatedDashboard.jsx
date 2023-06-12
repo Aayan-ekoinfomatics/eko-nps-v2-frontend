@@ -1,43 +1,47 @@
-import React, { useEffect, useState } from "react";
+// react hooks
+import { useEffect, useState } from "react";
 import Header from "../components/global-components/Header";
+// api calls
 import axios from "axios";
 import { VITE_BASE_LINK } from "../../baseLink";
+// components
+import NPSTrend from "../components/individual-components/NPSTrend";
+import NPSCardForConsolidatedDashboard from "../components/individual-components/NPSCardForConsolidatedDashboard";
+import GoogleReviewsTrend from "../components/individual-components/GoogleReviewsTrend";
+// misc
+import PuffLoader from "react-spinners/PuffLoader";
+// material ui
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
-import NPSCardForConsolidatedDashboard from "../components/individual-components/NPSCardForConsolidatedDashboard";
 import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
-import PuffLoader from "react-spinners/PuffLoader";
+// local media assets
 import PositiveIcon from "../assets/img/NPS Dashboard/Positive.svg";
 import NegativeIcon from "../assets/img/NPS Dashboard/Negative.svg";
 import ExtremeIcon from "../assets/img/NPS Dashboard/Extreme.svg";
 import NeutralIcon from "../assets/img/NPS Dashboard/Neutral.svg";
-import NPSTrend from "../components/individual-components/NPSTrend";
-import GoogleReviewsTrend from "../components/individual-components/GoogleReviewsTrend";
 
 const ConsolidatedDashboard = () => {
+  // local variables
   const [ratingCardData, setRatingCardData] = useState();
   const [reviewsData, setReviewsData] = useState();
   const [googleReviewsData, setGoogleReviewsData] = useState();
   const [totalViewedComments, setTotalViewedComments] = useState(30);
   const [expandComment, setExpandComment] = useState("");
-
+  // api calls
   useEffect(() => {
     axios.post(VITE_BASE_LINK + "google/get_rating").then((response) => {
-      // console.log(response?.data);
       setRatingCardData(response?.data?.data);
     });
 
     axios.post(VITE_BASE_LINK + "nps/all_comments").then((response) => {
-      // console.log(response?.data);
       setReviewsData(response?.data);
     });
 
     axios.post(VITE_BASE_LINK + "google/all_comments").then((response) => {
-      // console.log(response?.data);
       setGoogleReviewsData(response?.data);
     });
   }, []);
-
+  // trunctae text handler
   function truncate(string, n) {
     return (
       <span>
@@ -54,14 +58,13 @@ const ConsolidatedDashboard = () => {
       </span>
     );
   }
-
+  // handle load more
   function handleLoadMore() {
     setTotalViewedComments(totalViewedComments + 50);
   }
   return (
     <div>
       <Header />
-
       <div className="px-5 flex flex-col md:flex-row  gap-5">
         {/* nps */}
         <div className="flex-1 md:w-[50%] border rounded-md  p-5">

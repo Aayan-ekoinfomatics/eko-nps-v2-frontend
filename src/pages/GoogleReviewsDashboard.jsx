@@ -1,87 +1,41 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../components/global-components/Sidebar";
-import eko_logo from "../assets/icons/eko_logo.png";
-import EventIcon from "@mui/icons-material/Event";
+// react hooks
+import { useEffect, useState } from "react";
+// api call
+import axios from "axios";
+import { VITE_BASE_LINK } from "../../baseLink";
+// material ui
 import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
-import SentimentVerySatisfiedRoundedIcon from "@mui/icons-material/SentimentVerySatisfiedRounded";
-import SentimentSatisfiedRoundedIcon from "@mui/icons-material/SentimentSatisfiedRounded";
-import SentimentDissatisfiedRoundedIcon from "@mui/icons-material/SentimentDissatisfiedRounded";
-import SentimentVeryDissatisfiedRoundedIcon from "@mui/icons-material/SentimentVeryDissatisfiedRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
-import { Bar, BarChart, Pie, PieChart, ResponsiveContainer } from "recharts";
-import NSSCard from "../components/individual-components/NSSCard";
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
-import axios from "axios";
-import { VITE_BASE_LINK } from "../../baseLink";
-import NSSOverTime from "../components/individual-components/NSSOvertime";
+import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
+// local assets
 import PositiveIcon from "../assets/img/NPS Dashboard/Positive.svg";
 import NegativeIcon from "../assets/img/NPS Dashboard/Negative.svg";
 import ExtremeIcon from "../assets/img/NPS Dashboard/Extreme.svg";
 import NeutralIcon from "../assets/img/NPS Dashboard/Neutral.svg";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import PuffLoader from "react-spinners/PuffLoader";
+// components
+import NSSCard from "../components/individual-components/NSSCard";
+import NSSOverTime from "../components/individual-components/NSSOvertime";
 import Header from "../components/global-components/Header";
-import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
+// misc
+import PuffLoader from "react-spinners/PuffLoader";
+import GoogleReviewsTrend from "../components/individual-components/GoogleReviewsTrend";
 
 const GoogleReviewsDashboard = () => {
-  const data02 = [
-    { name: "A1", value: 100 },
-    { name: "A2", value: 300 },
-    { name: "B1", value: 100 },
-    { name: "B2", value: 80 },
-    { name: "B3", value: 40 },
-    { name: "B4", value: 30 },
-    { name: "B5", value: 50 },
-    { name: "C1", value: 100 },
-    { name: "C2", value: 200 },
-    { name: "D1", value: 150 },
-    { name: "D2", value: 50 },
-  ];
-
-  const ratingData = {
-    rating: "3.8",
-    stars: 3,
-    total: "67",
-    _5: "90%",
-    _4: "60%",
-    _3: "50%",
-    _2: "70%",
-    _1: "30%",
-  };
-
-  const sentiments = {
-    positive: "36%",
-    satisfactory: "23%",
-    negative: "31%",
-    extreame: "41%",
-  };
-
-  const smallCardData = [
-    { title: "Surveyed", score: "23,050" },
-    { title: "Comments", score: "16,315" },
-    { title: "Alerts", score: "32" },
-  ];
-
+  // local variables
   const [ratingCardData, setRatingCardData] = useState();
-
   const [smallCardApiData, setSmallCardApiData] = useState();
-
   const [reviewsData, setReviewsData] = useState();
-
   const [alertData, setAlertData] = useState();
-
   const [expandComment, setExpandComment] = useState("");
-
   const [clickCount, setClickCount] = useState(false);
-
   const [totalViewedComments, setTotalViewedComments] = useState(30);
-
+  // handle load more comments
   function handleLoadMore() {
     setTotalViewedComments(totalViewedComments + 50);
   }
-
   // truncate function
   function truncate(string, n) {
     return (
@@ -99,25 +53,21 @@ const GoogleReviewsDashboard = () => {
       </span>
     );
   }
-
+  // api calls
   useEffect(() => {
     axios.post(VITE_BASE_LINK + "google/get_rating").then((response) => {
-      // console.log(response?.data);
       setRatingCardData(response?.data?.data);
     });
 
     axios.post(VITE_BASE_LINK + "google/net_cards").then((response) => {
-      // console.log(response?.data);
       setSmallCardApiData(response?.data?.data);
     });
 
     axios.post(VITE_BASE_LINK + "google/all_comments").then((response) => {
-      // console.log(response?.data);
       setReviewsData(response?.data);
     });
 
     axios.post(VITE_BASE_LINK + "google/all_alerts").then((response) => {
-      // console.log(response?.data);
       setAlertData(response?.data);
     });
   }, []);
@@ -338,8 +288,9 @@ const GoogleReviewsDashboard = () => {
         </div>
 
         {/* bar chart */}
-        <div className="w-full p-4">
+        <div className="w-full p-4 flex gap-5">
           <NSSOverTime />
+          <GoogleReviewsTrend />
         </div>
 
         {/* comments & alerts */}

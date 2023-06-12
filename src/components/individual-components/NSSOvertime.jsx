@@ -33,10 +33,10 @@ const NSSOverTime = () => {
   );
 
   useEffect(() => {
-    axios.post(VITE_BASE_LINK + 'google/nss_over_time').then((response) => {
-        // console.log(response?.data);
-        setApiData(response?.data?.data)
-    })
+    axios.post(VITE_BASE_LINK + "google/nss_over_time").then((response) => {
+      // console.log(response?.data);
+      setApiData(response?.data?.data);
+    });
     // setApiData(nssOverTimeAPIData);
     // console.log("nssOverTimeAPIData:");
     // console.log(nssOverTimeAPIData);
@@ -74,7 +74,7 @@ const NSSOverTime = () => {
 
           {/* Graph */}
           <div className="relative ">
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={300}>
               <BarChart
                 data={apiData?.nss_over_time}
                 margin={{ top: 0, right: 20, left: -20, bottom: 0 }}
@@ -92,6 +92,12 @@ const NSSOverTime = () => {
                   tickCount={10}
                   angle={0}
                   textAnchor="middle"
+                  // label={{
+                  //   value: "Time -->",
+                  //   angle: 0,
+                  //   offset: 0,
+                  //   position: "insideBottom",
+                  // }}
                 />
                 <YAxis
                   axisLine={false}
