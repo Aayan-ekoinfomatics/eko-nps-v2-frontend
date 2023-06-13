@@ -101,7 +101,6 @@ const NPSDashboard = () => {
             <NPSSentimentCard />
 
             {/* card 3 */}
-
             <div className="w-full col-start-1 col-end-3 xl:col-start-3 grid grid-cols-3 gap-4 ">
               {smallCardApiData?.map((data, i) => (
                 <div

@@ -27,6 +27,8 @@ const ConsolidatedDashboard = () => {
   const [googleReviewsData, setGoogleReviewsData] = useState();
   const [totalViewedComments, setTotalViewedComments] = useState(30);
   const [expandComment, setExpandComment] = useState("");
+  const [clickCount, setClickCount] = useState(false);
+
   // api calls
   useEffect(() => {
     axios.post(VITE_BASE_LINK + "google/get_rating").then((response) => {

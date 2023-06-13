@@ -8,20 +8,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-// import mockData from "../../../../mock_API/NPS/NPS Main Dashboard/NSSOverTime.json";
-import chevron from "../../assets/img/global-img/DownChevron.svg";
-import { useRecoilState } from "recoil";
-import startDateValue from "../../recoil/atoms/StartDateAtom";
-import startMonthValue from "../../recoil/atoms/StartMonthAtom";
-import endDateValue from "../../recoil/atoms/EndDateAtom";
-import endMonthValue from "../../recoil/atoms/EndMonth";
-import sendData from "../../recoil/atoms/sendDatesValueAtom";
 import axios from "axios";
 import { PuffLoader } from "react-spinners";
-import sentimentOverTimeApiData from "../../recoil/atoms/sentimentOverTimeApiData";
-import { useDetectClickOutside } from "react-detect-click-outside";
-import RefreshIcon from "@mui/icons-material/Refresh";
-
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { exportComponentAsPNG } from "react-component-export-image";
 import { VITE_BASE_LINK } from "../../../baseLink";
@@ -120,7 +108,7 @@ const GoogleReviewsTrend = () => {
                   type="monotone"
                   name="sentiments"
                   dataKey="avg_rating"
-                  stroke="#0094E0 "
+                  stroke="#0094E0"
                   dot={false}
                   strokeWidth={4}
                   fill="url(#nssGradient)"
