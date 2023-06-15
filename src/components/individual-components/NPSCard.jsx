@@ -26,10 +26,8 @@ const NPSCard = () => {
   const [showInfoNps, setShowInfoNps] = useState(false);
 
   useEffect(() => {
-    // setApiData(npsApiData);
-    console.log("NPS Card data -----------------------------");
     axios.post(VITE_BASE_LINK + "nps/net_promoter_score").then((response) => {
-      console.log(response?.data);
+      console.log("NPS card data:", response?.data);
       setApiData(response?.data?.data);
     });
     console.log(npsApiData);

@@ -27,15 +27,21 @@ const NPSCardForConsolidatedDashboard = () => {
 
   useEffect(() => {
     // setApiData(npsApiData);
-    console.log("NPS Card data -----------------------------");
     axios.post(VITE_BASE_LINK + "nps/net_promoter_score").then((response) => {
-      console.log(response?.data);
+      console.log(
+        "###########################NPS CARD DATA:########################",
+        response?.data
+      );
       setApiData(response?.data?.data);
+      setNpsApiData(response?.data?.data);
     });
-    console.log(npsApiData);
   }, []);
 
   const NPSComponent = useRef();
+
+  useEffect(() => {
+    console.log("npsApiData###################", npsApiData);
+  }, [npsApiData]);
 
   return (
     <div
@@ -182,11 +188,7 @@ const NPSCardForConsolidatedDashboard = () => {
               <div className="w-full ">
                 <ResponsiveContainer height={150} width="100%">
                   <PieChart className="">
-                    <Tooltip
-                      cursor={false}
-                      content={<CustomTooltip />}
-                      position={{ y: -0, x: -150 }}
-                    />
+                    <Tooltip cursor={false} content={<CustomTooltip />} />
                     <Pie
                       // data={MockApiNPSData.nps_pie}
                       data={apiData?.nps_pie}
@@ -226,47 +228,56 @@ function CustomTooltip({ active, payload, label }) {
 
   useEffect(() => {
     setApiData(npsApiData);
+
+    console.log("####################################", npsApiData);
   }, [npsApiData]);
 
   if (active) {
     return (
       <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-3 shadow-2xl shadow-[#000000] min-w-[150px]">
-        {payload?.map((data) => (
-          <div key={Math.random()} className="">
-            <div className="">
-              <div className="flex justify-between items-center mb-2">
-                <h1 className="capitalize mr-5 text-[14px] font-semibold">
-                  {data?.name}
-                </h1>
+        {payload?.map((data) => {
+          console.log("tooltip data :", data);
+          return (
+            <div key={Math.random()} className="">
+              <div className="">
+                <div className="flex justify-between items-center mb-2">
+                  <h1 className="capitalize mr-5 text-[14px] font-semibold">
+                    {data?.name}
+                  </h1>
 
-                <div
-                  style={{ background: data.payload.color }}
-                  className={`h-[8px] w-[8px] rounded-full `}
-                ></div>
-              </div>
+                  <div
+                    style={{ background: data.payload.color }}
+                    className={`h-[8px] w-[8px] rounded-full `}
+                  ></div>
+                </div>
 
-              <div className="flex justify-between items-center  w-full">
-                <span className="text-[11px] font-semibold">Percentage:</span>
-                <span className="text-[11px] font-semibold">
-                  {data?.value} %
-                </span>
-              </div>
+                <div className="flex justify-between items-center  w-full">
+                  <span className="text-[11px] font-semibold">Percentage:</span>
+                  <span className="text-[11px] font-semibold">
+                    {data?.value} %
+                  </span>
+                </div>
 
-              <div className="flex justify-between items-center  w-full">
-                <span className="text-[11px] font-semibold">Total count:</span>
-                <span className="text-[11px] font-semibold">
-                  {data?.name === "Promoters"
-                    ? apiData?.nps?.total_promoters
-                    : ""}
-                  {data?.name === "Passives" ? apiData?.nps?.total_passive : ""}
-                  {data?.name === "Detractors"
-                    ? apiData?.nps?.total_detractors
-                    : ""}
-                </span>
+                <div className="flex justify-between items-center  w-full">
+                  <span className="text-[11px] font-semibold">
+                    Total count:
+                  </span>
+                  <span className="text-[11px] font-semibold">
+                    {data?.name === "Promoters"
+                      ? apiData?.nps?.total_promoters
+                      : ""}
+                    {data?.name === "Passives"
+                      ? apiData?.nps?.total_passive
+                      : ""}
+                    {data?.name === "Detractors"
+                      ? apiData?.nps?.total_detractors
+                      : ""}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     );
   }

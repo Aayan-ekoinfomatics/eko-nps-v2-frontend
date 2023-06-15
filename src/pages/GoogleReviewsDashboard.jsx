@@ -22,6 +22,7 @@ import Header from "../components/global-components/Header";
 // misc
 import PuffLoader from "react-spinners/PuffLoader";
 import GoogleReviewsTrend from "../components/individual-components/GoogleReviewsTrend";
+import GoogleRatingsAndSentimentOverTime from "../components/individual-components/GoogleRatingsAndSentimentOverTime";
 
 const GoogleReviewsDashboard = () => {
   // local variables
@@ -287,11 +288,15 @@ const GoogleReviewsDashboard = () => {
           </div>
         </div>
 
+        <div className="p-4">
+          <GoogleRatingsAndSentimentOverTime />
+        </div>
+
         {/* bar chart */}
-        <div className="w-full p-4 flex gap-5">
+        {/* <div className="w-full p-4 flex gap-5">
           <NSSOverTime />
           <GoogleReviewsTrend />
-        </div>
+        </div> */}
 
         {/* comments & alerts */}
         <div className="w-full p-4 flex flex-col 2xl:flex-row gap-5 pb-10">

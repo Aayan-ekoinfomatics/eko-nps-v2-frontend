@@ -1,0 +1,266 @@
+{
+  "composed_chart_data": [
+    {
+      "date__year": 2023,
+      "date__month": 6,
+      "rating_count": 17,
+      "year": 2023,
+      "survey_date": "2023-06-03T00:00:00Z",
+      "avg_rating": 3.76,
+      "SURVEY_MONTH": "Jun-2023",
+      "month": "Jun-23",
+      "nss": 23.53
+    },
+    {
+      "date__year": 2023,
+      "date__month": 5,
+      "rating_count": 16,
+      "year": 2023,
+      "survey_date": "2023-05-03T00:00:00Z",
+      "avg_rating": 3.69,
+      "SURVEY_MONTH": "May-2023",
+      "nss": 31.25,
+      "month": "May-23"
+    },
+    {
+      "date__year": 2023,
+      "date__month": 4,
+      "rating_count": 11,
+      "year": 2023,
+      "survey_date": "2023-04-03T00:00:00Z",
+      "avg_rating": 4.36,
+      "SURVEY_MONTH": "Apr-2023",
+      "nss": 0,
+
+      "month": "Apr-23"
+    },
+    {
+      "date__year": 2023,
+      "date__month": 3,
+      "rating_count": 11,
+      "year": 2023,
+      "survey_date": "2023-03-03T00:00:00Z",
+      "avg_rating": 4.18,
+      "nss": 27.27,
+
+      "SURVEY_MONTH": "Mar-2023",
+      "month": "Mar-23"
+    },
+    {
+      "date__year": 2023,
+      "date__month": 2,
+      "rating_count": 7,
+      "year": 2023,
+      "survey_date": "2023-02-03T00:00:00Z",
+      "avg_rating": 4,
+      "SURVEY_MONTH": "Feb-2023",
+      "nss": 14.29,
+
+      "month": "Feb-23"
+    },
+    {
+      "date__year": 2023,
+      "date__month": 1,
+      "rating_count": 17,
+      "year": 2023,
+      "survey_date": "2023-01-03T00:00:00Z",
+      "avg_rating": 4.41,
+      "SURVEY_MONTH": "Jan-2023",
+      "nss": 23.53,
+
+      "month": "Jan-23"
+    },
+    {
+      "date__year": 2022,
+      "date__month": 12,
+      "rating_count": 19,
+      "year": 2022,
+      "survey_date": "2022-12-03T00:00:00Z",
+      "avg_rating": 3.89,
+      "SURVEY_MONTH": "Dec-2022",
+      "nss": 10.53,
+
+      "month": "Dec-22"
+    },
+    {
+      "date__year": 2022,
+      "date__month": 11,
+      "rating_count": 12,
+      "year": 2022,
+      "survey_date": "2022-11-03T00:00:00Z",
+      "avg_rating": 4.42,
+      "SURVEY_MONTH": "Nov-2022",
+      "nss": 33.33,
+
+      "month": "Nov-22"
+    },
+    {
+      "date__year": 2022,
+      "date__month": 10,
+      "rating_count": 7,
+      "year": 2022,
+      "survey_date": "2022-10-03T00:00:00Z",
+      "avg_rating": 3.57,
+      "SURVEY_MONTH": "Oct-2022",
+      "nss": 0,
+
+      "month": "Oct-22"
+    },
+    {
+      "date__year": 2022,
+      "date__month": 9,
+      "rating_count": 31,
+      "year": 2022,
+      "survey_date": "2022-09-03T00:00:00Z",
+      "avg_rating": 3.94,
+      "SURVEY_MONTH": "Sep-2022",
+      "nss": 3.23,
+
+      "month": "Sep-22"
+    },
+    {
+      "date__year": 2022,
+      "date__month": 8,
+      "rating_count": 33,
+      "year": 2022,
+      "survey_date": "2022-08-03T00:00:00Z",
+      "avg_rating": 4.06,
+      "SURVEY_MONTH": "Aug-2022",
+      "nss": 24.24,
+
+      "month": "Aug-22"
+    },
+    {
+      "date__year": 2022,
+      "date__month": 7,
+      "rating_count": 32,
+      "year": 2022,
+      "survey_date": "2022-07-03T00:00:00Z",
+      "avg_rating": 3.97,
+      "SURVEY_MONTH": "Jul-2022",
+      "nss": 25,
+
+      "month": "Jul-22"
+    },
+    {
+      "date__year": 2022,
+      "date__month": 6,
+      "rating_count": 164,
+      "year": 2022,
+      "survey_date": "2022-06-03T00:00:00Z",
+      "avg_rating": 3.88,
+      "SURVEY_MONTH": "Jun-2022",
+      "nss": 19.51,
+
+      "month": "Jun-22"
+    },
+    {
+      "date__year": 2021,
+      "date__month": 6,
+      "rating_count": 99,
+      "year": 2021,
+      "survey_date": "2021-06-03T00:00:00Z",
+      "avg_rating": 4.27,
+      "SURVEY_MONTH": "Jun-2021",
+      "nss": 17.17,
+
+      "month": "Jun-21"
+    },
+    {
+      "date__year": 2020,
+      "date__month": 6,
+      "rating_count": 153,
+      "year": 2020,
+      "survey_date": "2020-06-03T00:00:00Z",
+      "avg_rating": 3.84,
+      "SURVEY_MONTH": "Jun-2020",
+      "nss": 10.46,
+
+      "month": "Jun-20"
+    },
+    {
+      "date__year": 2019,
+      "date__month": 6,
+      "rating_count": 200,
+      "year": 2019,
+      "survey_date": "2019-06-03T00:00:00Z",
+      "avg_rating": 3.73,
+      "SURVEY_MONTH": "Jun-2019",
+      "nss": 7.5,
+
+      "month": "Jun-19"
+    },
+    {
+      "date__year": 2018,
+      "date__month": 6,
+      "rating_count": 216,
+      "year": 2018,
+      "survey_date": "2018-06-03T00:00:00Z",
+      "avg_rating": 3.9,
+      "SURVEY_MONTH": "Jun-2018",
+      "nss": 13.43,
+
+      "month": "Jun-18"
+    },
+    {
+      "date__year": 2017,
+      "date__month": 6,
+      "rating_count": 148,
+      "year": 2017,
+      "survey_date": "2017-06-03T00:00:00Z",
+      "avg_rating": 4.29,
+      "SURVEY_MONTH": "Jun-2017",
+      "nss": 27.03,
+
+      "month": "Jun-17"
+    },
+    {
+      "date__year": 2016,
+      "date__month": 6,
+      "rating_count": 52,
+      "year": 2016,
+      "survey_date": "2016-06-03T00:00:00Z",
+      "avg_rating": 4.33,
+      "SURVEY_MONTH": "Jun-2016",
+      "nss": 13.46,
+
+      "month": "Jun-16"
+    },
+    {
+      "date__year": 2015,
+      "date__month": 6,
+      "rating_count": 13,
+      "year": 2015,
+      "survey_date": "2015-06-03T00:00:00Z",
+      "avg_rating": 4.38,
+      "SURVEY_MONTH": "Jun-2015",
+      "nss": 15.38,
+
+      "month": "Jun-15"
+    },
+    {
+      "date__year": 2014,
+      "date__month": 6,
+      "rating_count": 12,
+      "year": 2014,
+      "survey_date": "2014-06-03T00:00:00Z",
+      "avg_rating": 4,
+      "SURVEY_MONTH": "Jun-2014",
+      "nss": 16.67,
+
+      "month": "Jun-14"
+    },
+    {
+      "date__year": 2013,
+      "date__month": 6,
+      "rating_count": 7,
+      "year": 2013,
+      "survey_date": "2013-06-03T00:00:00Z",
+      "avg_rating": 4.43,
+      "SURVEY_MONTH": "Jun-2013",
+      "nss": 14.29,
+
+      "month": "Jun-13"
+    }
+  ]
+}

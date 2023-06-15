@@ -19,8 +19,9 @@ const Header = () => {
   const [isFilePicked, setIsFilePicked] = useState(false);
 
   const [uploadLogStatus, setUploadStatus] = useState(false);
+  const [uploadModalStatus, setUploadModalStatus] = useState(false);
 
-  const uploadRef = useRef();
+  const uploadLogRef = useRef();
 
   const navigate = useNavigate();
 
@@ -37,9 +38,8 @@ const Header = () => {
     })
       .then((response) => response?.json())
       .then((result) => {
-        console.log("delete records response:");
-        console.log(result);
         alert(result?.message);
+        setUploadModalStatus(false);
         if (result?.status) {
           window.location.reload(false);
         }
@@ -47,7 +47,25 @@ const Header = () => {
       .catch((error) => {});
   };
 
-  const handleSubmission = () => {};
+  const handleSubmission = () => {
+    // setLoaderStatus(true);
+    const formData = new FormData();
+    formData.append("username", "usernameLocal");
+    formData.append("file", selectedFile);
+
+    fetch(VITE_BASE_LINK + "nps/file_upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response?.json())
+      .then((result) => {
+        console.log("response after upload:");
+        console.log(result);
+        setUploadModalStatus(false);
+        alert(result?.message);
+      })
+      .catch((error) => {});
+  };
 
   const logout = () => {
     localStorage?.clear();
@@ -64,22 +82,25 @@ const Header = () => {
   }, [selectedFile]);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (uploadRef.current && !uploadRef.current.contains(event.target)) {
-        onClickOutside();
+    const handleClickOutsideUploadLog = (event) => {
+      if (
+        uploadLogRef.current &&
+        !uploadLogRef.current.contains(event.target)
+      ) {
+        onClickOutsideUploadLog();
       }
     };
 
-    const onClickOutside = () => {
+    const onClickOutsideUploadLog = () => {
       setUploadStatus(false);
     };
 
     document.addEventListener("mousedown", (event) => {
-      handleClickOutside(event);
+      handleClickOutsideUploadLog(event);
     });
     return () => {
       document.removeEventListener("mousedown", (event) => {
-        handleClickOutside(event);
+        handleClickOutsideUploadLog(event);
       });
     };
   }, []);
@@ -88,27 +109,27 @@ const Header = () => {
   const upload_log_data = [
     {
       id: 1,
-      file_name: "test.txt",
+      file_name: "data.csv",
       file_size: 1000,
       file_type: "text/plain",
       user_name: "Vivek",
-      uploaded_time: new Date(),
+      uploaded_time: "20/06/23",
     },
     {
       id: 2,
-      file_name: "test.txt",
+      file_name: "data2.xlxs",
       file_size: 1000,
       file_type: "text/plain",
       user_name: "Aayan",
-      uploaded_time: new Date(),
+      uploaded_time: "21/06/23",
     },
     {
       id: 3,
-      file_name: "test.txt",
+      file_name: "data3.csv",
       file_size: 1000,
       file_type: "text/plain",
-      user_name: "Utkarsh Gupta",
-      uploaded_time: new Date(),
+      user_name: "Utkarsh ",
+      uploaded_time: "22/06/23",
     },
   ];
 
@@ -140,7 +161,7 @@ const Header = () => {
         {!location?.pathname?.includes("/nps-dashboard") ? null : (
           <div className="flex items-center gap-4">
             {/* upload log vivek */}
-            <div ref={uploadRef} className="relative">
+            <div ref={uploadLogRef} className="relative">
               <button
                 onClick={() => setUploadStatus(!uploadLogStatus)}
                 className="bg-sky-600 text-white p-2 rounded-lg "
@@ -155,7 +176,7 @@ const Header = () => {
                       Upload log
                     </h1>
                   </div>
-                  <div className="grid grid-cols-5 text-sm py-2 border-b border-b-[#e9e7e7]">
+                  <div className="grid grid-cols-5 gap-5 text-sm py-2 border-b border-b-[#e9e7e7]">
                     <div className="text-xs text-gray-600 ">Time</div>
                     <div className="text-xs text-gray-600 ">Username</div>
                     <div className="text-xs text-gray-600 col-span-2">
@@ -167,10 +188,10 @@ const Header = () => {
                     return (
                       <div
                         key={data?.id}
-                        className="grid grid-cols-5 text-sm py-2 border-b border-b-[#e9e7e77e]"
+                        className="grid grid-cols-5 gap-5 text-sm py-2 border-b border-b-[#e9e7e77e]"
                       >
                         <div className="hidden"></div>
-                        <div> {data?.uploaded_time?.getMilliseconds()} </div>
+                        <div> {data?.uploaded_time} </div>
                         <div> {data?.user_name} </div>
                         <div className="col-span-2"> {data?.file_name} </div>
                         <div>{data?.file_size}</div>
@@ -182,7 +203,7 @@ const Header = () => {
             </div>
 
             {/* file upload delete button  amrit */}
-            <form className=" flex w-fit">
+            {/* <form className=" flex w-fit">
               <span
                 onClick={delete_records}
                 // className="absolute -top-2 -bottom-2 -left-2 -right-2 w-full opacity-0 z-[-100] cursor-pointer text-white"
@@ -190,10 +211,108 @@ const Header = () => {
               >
                 X
               </span>
-            </form>
+            </form> */}
+
+            {/* upload file interface vivek */}
+            <button
+              onClick={() => setUploadModalStatus(true)}
+              className="p-2 px-3  bg-sky-600 text-center  rounded-md  text-white transition-all active:scale-95 cursor-pointer  border"
+            >
+              <FileUploadOutlinedIcon fontSize="small" />
+            </button>
+
+            {uploadModalStatus && (
+              <>
+                <div
+                  onClick={() => setUploadModalStatus(false)}
+                  className="fixed inset-0 bg-black opacity-5 z-[100]"
+                ></div>
+                <div className="fixed top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%]  bg-white p-5 z-[101] rounded-lg shadow-3xl border">
+                  <h1 className="text-lg font-semibold text-[#1e1e1e] mb-5">
+                    Upload Data
+                  </h1>
+
+                  <form className=" flex  justify-center items-center w-[300px] border-2 border-dashed ">
+                    <label
+                      htmlFor="file-upload"
+                      className=" relative  text-[#1e1e1e] w-full p-5 cursor-pointer"
+                    >
+                      <input
+                        type="file"
+                        name="file"
+                        id="file-upload"
+                        onChange={changeHandler}
+                        onClick={(event) => (event.target.value = "")}
+                        accept={".csv, .xlsx"}
+                        placeholder="upload"
+                        className="absolute -top-2 -bottom-2 -left-2 -right-2 w-full opacity-0 z-[-100] cursor-pointer"
+                      />
+
+                      <div className="flex flex-col justify-center items-center">
+                        <FileUploadOutlinedIcon
+                          fontSize="large"
+                          className="text-gray-400"
+                        />
+                      </div>
+
+                      <div className="mt-5 ">
+                        <h1 className="flex items-center gap-2 ">
+                          <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                            Size
+                          </span>
+                          :
+                          <span className="text-sm text-gray-400">
+                            less than 20MB
+                          </span>
+                        </h1>
+                        <h1 className="flex items-center gap-2 ">
+                          <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                            File type
+                          </span>
+                          :
+                          <span className="text-sm text-gray-400">
+                            .csv or .xlsx
+                          </span>
+                        </h1>
+
+                        <h1 className="flex items-center gap-2 ">
+                          <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                            Columns
+                          </span>
+                          :
+                          <span className="text-sm text-gray-400">
+                            review, nps, date
+                            <br /> (case insensitive)
+                          </span>
+                        </h1>
+
+                        <h1 className="flex items-center gap-2 ">
+                          <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                            Date Format
+                          </span>
+                          :
+                          <span className="text-sm text-gray-400">
+                            YYYY-MM-DD
+                          </span>
+                        </h1>
+                      </div>
+                    </label>
+                  </form>
+
+                  <div className="flex justify-end mt-2">
+                    <button
+                      onClick={delete_records}
+                      className="text-xs hover:underline underline-offset-4 text-red-500   "
+                    >
+                      Clear data
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
 
             {/* file upload button  aayyaaaaan */}
-            <form className=" flex w-fit">
+            {/* <form className=" flex w-fit">
               <label
                 htmlFor="file-upload"
                 className="p-2 sm:py-3 bg-sky-600 text-center sm:w-[50px] rounded-md  text-white transition-all active:scale-95 cursor-pointer relative border"
@@ -210,43 +329,10 @@ const Header = () => {
                 />
 
                 <div className="flex flex-col justify-center items-center">
-                  <svg
-                    width="8"
-                    height="11"
-                    viewBox="0 0 8 11"
-                    className={` `}
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    stroke="white"
-                    strokeWidth={0.8}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.14663 0.146894C3.19308 0.100331 3.24825 0.0633877 3.309 0.0381812C3.36974 0.0129748 3.43486 0 3.50063 0C3.5664 0 3.63152 0.0129748 3.69227 0.0381812C3.75301 0.0633877 3.80819 0.100331 3.85463 0.146894L6.85463 3.14689C6.94852 3.24078 7.00126 3.36812 7.00126 3.50089C7.00126 3.63367 6.94852 3.76101 6.85463 3.85489C6.76075 3.94878 6.63341 4.00153 6.50063 4.00153C6.36786 4.00153 6.24052 3.94878 6.14663 3.85489L4.00063 1.70789V10.5009C4.00063 10.6335 3.94795 10.7607 3.85419 10.8544C3.76042 10.9482 3.63324 11.0009 3.50063 11.0009C3.36802 11.0009 3.24085 10.9482 3.14708 10.8544C3.05331 10.7607 3.00063 10.6335 3.00063 10.5009V1.70789L0.854632 3.85489C0.808144 3.90138 0.752955 3.93826 0.692215 3.96342C0.631476 3.98858 0.566376 4.00153 0.500632 4.00153C0.434888 4.00153 0.369788 3.98858 0.309048 3.96342C0.248309 3.93826 0.19312 3.90138 0.146632 3.85489C0.100144 3.80841 0.0632674 3.75322 0.0381083 3.69248C0.0129493 3.63174 -4.89829e-10 3.56664 0 3.50089C4.89831e-10 3.43515 0.0129493 3.37005 0.0381083 3.30931C0.0632674 3.24857 0.100144 3.19338 0.146632 3.14689L3.14663 0.146894Z"
-                      fill="white"
-                    />
-                  </svg>
-
-                  <svg
-                    width="16"
-                    height="5"
-                    viewBox="0 0 16 5"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    stroke="white"
-                    strokeWidth={1}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M0.5 0C0.632608 0 0.759785 0.052679 0.853553 0.146447C0.947322 0.240215 1 0.367392 1 0.5V3C1 3.26522 1.10536 3.51957 1.29289 3.70711C1.48043 3.89464 1.73478 4 2 4H14C14.2652 4 14.5196 3.89464 14.7071 3.70711C14.8946 3.51957 15 3.26522 15 3V0.5C15 0.367392 15.0527 0.240215 15.1464 0.146447C15.2402 0.052679 15.3674 0 15.5 0C15.6326 0 15.7598 0.052679 15.8536 0.146447C15.9473 0.240215 16 0.367392 16 0.5V3C16 3.53043 15.7893 4.03914 15.4142 4.41421C15.0391 4.78929 14.5304 5 14 5H2C1.46957 5 0.960859 4.78929 0.585786 4.41421C0.210714 4.03914 0 3.53043 0 3V0.5C0 0.367392 0.0526784 0.240215 0.146447 0.146447C0.240215 0.052679 0.367392 0 0.5 0V0Z"
-                      fill="white"
-                    />
-                  </svg>
+                  <FileUploadOutlinedIcon fontSize="small" />
                 </div>
               </label>
-            </form>
+            </form> */}
           </div>
         )}
       </div>

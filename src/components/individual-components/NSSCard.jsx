@@ -28,6 +28,7 @@ const NSSCard = () => {
     axios.post(VITE_BASE_LINK + "google/netSentimentCard").then((response) => {
       console.log(response?.data);
       setApiData(response?.data?.data);
+      setNssApiData(response?.data?.data);
     });
   }, []);
 

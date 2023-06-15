@@ -19,6 +19,7 @@ import PositiveIcon from "../assets/img/NPS Dashboard/Positive.svg";
 import NegativeIcon from "../assets/img/NPS Dashboard/Negative.svg";
 import ExtremeIcon from "../assets/img/NPS Dashboard/Extreme.svg";
 import NeutralIcon from "../assets/img/NPS Dashboard/Neutral.svg";
+import GoogleRatingsAndSentimentOverTime from "../components/individual-components/GoogleRatingsAndSentimentOverTime";
 
 const ConsolidatedDashboard = () => {
   // local variables
@@ -489,7 +490,8 @@ const ConsolidatedDashboard = () => {
           </div>
 
           <div className="mt-5">
-            <GoogleReviewsTrend />
+            {/* <GoogleReviewsTrend /> */}
+            <GoogleRatingsAndSentimentOverTime />
           </div>
 
           <div className="mt-5">

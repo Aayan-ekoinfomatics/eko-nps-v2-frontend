@@ -110,7 +110,7 @@ const Sidebar = () => {
         <div className="w-full flex flex-col items-center gap-5 lg:items-stretch relative mb-6 lg:pl-4 mt-[20px] ">
           {sidebarData.map((item, index) => {
             return (
-              <>
+              <div key={index}>
                 {/* parent link */}
                 <Link
                   key={index}
@@ -161,7 +161,7 @@ const Sidebar = () => {
                       </Link>
                     );
                   })}
-              </>
+              </div>
             );
           })}
         </div>
