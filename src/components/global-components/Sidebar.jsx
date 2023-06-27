@@ -12,6 +12,7 @@ import MoodOutlinedIcon from "@mui/icons-material/MoodOutlined";
 import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
+import PollRoundedIcon from "@mui/icons-material/PollRounded";
 
 const Sidebar = () => {
   // global variables
@@ -21,19 +22,19 @@ const Sidebar = () => {
   const sidebarData = [
     {
       title: "Dashboard",
-      icon: <DashboardRoundedIcon fontSize="small" className="text-sky-600" />,
+      icon: <DashboardRoundedIcon className="text-sky-600" />,
       path: "/",
     },
     {
       title: " Google Reviews",
-      icon: <GoogleIcon fontSize="small" className="text-sky-600" />,
+      icon: <GoogleIcon className="text-sky-600" />,
       path: "/google-dashboard",
       child: [
         {
           title: "Sentiments",
           icon: (
             <MoodOutlinedIcon
-              fontSize="extraSmall"
+              fontSize="small"
               className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
             />
           ),
@@ -43,7 +44,7 @@ const Sidebar = () => {
           title: "Comments",
           icon: (
             <RateReviewOutlinedIcon
-              fontSize="extraSmall"
+              fontSize="small"
               className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
             />
           ),
@@ -53,14 +54,14 @@ const Sidebar = () => {
     },
     {
       title: "Net Promoter Score",
-      icon: <CampaignIcon fontSize="small" className="text-sky-600" />,
+      icon: <CampaignIcon className="text-sky-600" />,
       path: "/nps-dashboard",
       child: [
         {
           title: "Sentiments",
           icon: (
             <MoodOutlinedIcon
-              fontSize="extraSmall"
+              fontSize="small"
               className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
             />
           ),
@@ -70,13 +71,18 @@ const Sidebar = () => {
           title: "Comments",
           icon: (
             <RateReviewOutlinedIcon
-              fontSize="extraSmall"
+              fontSize="small"
               className="scale-105 lg:scale-90 lg:ml-2 text-sky-600"
             />
           ),
           path: "/nps-dashboard/comments",
         },
       ],
+    },
+    {
+      title: "Survey",
+      icon: <PollRoundedIcon className="text-sky-600" />,
+      path: "/survey-dashboard",
     },
   ];
   return (

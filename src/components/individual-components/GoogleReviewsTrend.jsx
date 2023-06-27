@@ -41,7 +41,7 @@ const GoogleReviewsTrend = () => {
       )}
 
       {apiData && (
-        <div className="w-full ">
+        <div className="w-full">
           <div className="flex justify-between items-center mb-7">
             <h1 className=" font-bold opacity-80 text-[18px] ">
               Google Rating Trend
@@ -59,10 +59,10 @@ const GoogleReviewsTrend = () => {
             </div>
           </div>
 
-          <div className=" items-center gap-5 justify-end mb-2 hidden sm:flex ">
+          <div className=" items-center gap-5 justify-end mb-2 hidden sm:flex">
             <div className="flex items-center gap-1">
               <div className="bg-[#009DFF] h-[8px] w-[8px] rounded-full"></div>
-              <div className="text-[12px] opacity-80"> Avg Rating</div>
+              <div className="text-[12px] opacity-80">Avg Rating</div>
             </div>
           </div>
 
@@ -128,17 +128,17 @@ function CustomTooltip({ active, payload, label }) {
   if (active) {
     return (
       <div className="rounded-md bg-[#fafafa] text-[#1a1a1a] p-[1rem] shadow-2xl shadow-[#000000]">
-        <h1 className="capitalize mr-2 text-[13px] mb-2 font-bold ">
+        <h1 className="capitalize mr-2 text-[13px] mb-2 font-bold">
           {payload[0]?.payload?.month}, {payload[0]?.payload?.year}
         </h1>
         {payload?.map((data) => (
           <div key={Math?.random()} className="">
-            <div className="flex justify-start items-center ">
+            <div className="flex justify-start items-center">
               <div
                 style={{ background: data?.color }}
-                className={`h-[5px] w-[5px] rounded-full mr-2 `}
+                className={`h-[5px] w-[5px] rounded-full mr-2`}
               ></div>
-              <div className="flex justify-between items-center  w-full">
+              <div className="flex justify-between items-center w-full">
                 <span className="capitalize mr-2 text-[11px] font-semibold">
                   Avg Rating:
                 </span>

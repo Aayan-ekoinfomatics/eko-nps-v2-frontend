@@ -39,7 +39,7 @@ const GoogleRatingsAndSentimentOverTime = () => {
         setApiData(response?.data?.data?.rating_over_time);
       });
 
-    setApiData(mockData?.composed_chart_data);
+    // setApiData(mockData?.composed_chart_data);
   }, []);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const GoogleRatingsAndSentimentOverTime = () => {
       )}
 
       {apiData && (
-        <div className="w-full ">
+        <div className="w-full">
           <div className="flex justify-between items-center mb-7">
             <h1 className=" font-bold opacity-80 text-[18px] ">
               Google Trends

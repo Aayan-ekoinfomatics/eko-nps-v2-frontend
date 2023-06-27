@@ -161,7 +161,7 @@ const Header = () => {
         {!location?.pathname?.includes("/nps-dashboard") ? null : (
           <div className="flex items-center gap-4">
             {/* upload log vivek */}
-            <div ref={uploadLogRef} className="relative">
+            <div ref={uploadLogRef} className="relative hidden">
               <button
                 onClick={() => setUploadStatus(!uploadLogStatus)}
                 className="bg-sky-600 text-white p-2 rounded-lg "
@@ -225,87 +225,121 @@ const Header = () => {
               <>
                 <div
                   onClick={() => setUploadModalStatus(false)}
-                  className="fixed inset-0 bg-black opacity-5 z-[100]"
+                  className="fixed inset-0 bg-black opacity-0 z-[100]"
                 ></div>
-                <div className="fixed top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%]  bg-white p-5 z-[101] rounded-lg shadow-3xl border">
-                  <h1 className="text-lg font-semibold text-[#1e1e1e] mb-5">
-                    Upload Data
-                  </h1>
+                <div className="fixed top-20 right-16  bg-white p-5 z-[101] rounded-lg shadow-3xl border shadow-2xl">
+                  <div>
+                    <h1 className="text-lg font-semibold text-[#1e1e1e] mb-5">
+                      Upload Data
+                    </h1>
 
-                  <form className=" flex  justify-center items-center w-[300px] border-2 border-dashed ">
-                    <label
-                      htmlFor="file-upload"
-                      className=" relative  text-[#1e1e1e] w-full p-5 cursor-pointer"
-                    >
-                      <input
-                        type="file"
-                        name="file"
-                        id="file-upload"
-                        onChange={changeHandler}
-                        onClick={(event) => (event.target.value = "")}
-                        accept={".csv, .xlsx"}
-                        placeholder="upload"
-                        className="absolute -top-2 -bottom-2 -left-2 -right-2 w-full opacity-0 z-[-100] cursor-pointer"
-                      />
-
-                      <div className="flex flex-col justify-center items-center">
-                        <FileUploadOutlinedIcon
-                          fontSize="large"
-                          className="text-gray-400"
+                    <form className=" flex  justify-center items-center w-full border-2 border-dashed ">
+                      <label
+                        htmlFor="file-upload"
+                        className=" relative  text-[#1e1e1e] w-full p-5 cursor-pointer"
+                      >
+                        <input
+                          type="file"
+                          name="file"
+                          id="file-upload"
+                          onChange={changeHandler}
+                          onClick={(event) => (event.target.value = "")}
+                          accept={".csv, .xlsx"}
+                          placeholder="upload"
+                          className="absolute -top-2 -bottom-2 -left-2 -right-2 w-full opacity-0 z-[-100] cursor-pointer"
                         />
+
+                        <div className="flex flex-col justify-center items-center">
+                          <FileUploadOutlinedIcon
+                            fontSize="large"
+                            className="text-gray-400"
+                          />
+
+                          <p className="text-sm text-gray-500">Select a file</p>
+                        </div>
+
+                        <div className="mt-5  w-fit mx-auto">
+                          <h1 className="flex items-center gap-2 ">
+                            <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                              Size
+                            </span>
+                            :
+                            <span className="text-sm text-gray-400">
+                              less than 20MB
+                            </span>
+                          </h1>
+                          <h1 className="flex items-center gap-2 ">
+                            <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                              File type
+                            </span>
+                            :
+                            <span className="text-sm text-gray-400">
+                              .csv or .xlsx
+                            </span>
+                          </h1>
+
+                          <h1 className="flex items-center gap-2 ">
+                            <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                              Columns
+                            </span>
+                            :
+                            <span className="text-sm text-gray-400">
+                              review, nps, date
+                              <br /> (case insensitive)
+                            </span>
+                          </h1>
+
+                          <h1 className="flex items-center gap-2 ">
+                            <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                              Date Format
+                            </span>
+                            :
+                            <span className="text-sm text-gray-400">
+                              YYYY-MM-DD
+                            </span>
+                          </h1>
+                        </div>
+                      </label>
+                    </form>
+
+                    <div className="flex justify-end mt-2">
+                      <button
+                        onClick={delete_records}
+                        className="text-xs hover:underline underline-offset-4 text-red-500   "
+                      >
+                        Clear data
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div>
+                      <h1 className="text-base font-semibold text-[#1e1e1e] ">
+                        Upload log
+                      </h1>
+                    </div>
+                    <div className="grid grid-cols-5 gap-5 text-sm py-2 border-b border-b-[#e9e7e7]">
+                      <div className="text-xs text-gray-600 ">Time</div>
+                      <div className="text-xs text-gray-600 ">Username</div>
+                      <div className="text-xs text-gray-600 col-span-2">
+                        Filename
                       </div>
-
-                      <div className="mt-5 ">
-                        <h1 className="flex items-center gap-2 ">
-                          <span className="font-semibold text-sm w-[100px] text-gray-400 ">
-                            Size
-                          </span>
-                          :
-                          <span className="text-sm text-gray-400">
-                            less than 20MB
-                          </span>
-                        </h1>
-                        <h1 className="flex items-center gap-2 ">
-                          <span className="font-semibold text-sm w-[100px] text-gray-400 ">
-                            File type
-                          </span>
-                          :
-                          <span className="text-sm text-gray-400">
-                            .csv or .xlsx
-                          </span>
-                        </h1>
-
-                        <h1 className="flex items-center gap-2 ">
-                          <span className="font-semibold text-sm w-[100px] text-gray-400 ">
-                            Columns
-                          </span>
-                          :
-                          <span className="text-sm text-gray-400">
-                            review, nps, date
-                            <br /> (case insensitive)
-                          </span>
-                        </h1>
-
-                        <h1 className="flex items-center gap-2 ">
-                          <span className="font-semibold text-sm w-[100px] text-gray-400 ">
-                            Date Format
-                          </span>
-                          :
-                          <span className="text-sm text-gray-400">
-                            YYYY-MM-DD
-                          </span>
-                        </h1>
-                      </div>
-                    </label>
-                  </form>
-
-                  <div className="flex justify-end mt-2">
-                    <button
-                      onClick={delete_records}
-                      className="text-xs hover:underline underline-offset-4 text-red-500   "
-                    >
-                      Clear data
-                    </button>
+                      <div className="text-xs text-gray-600 ">File Size</div>
+                    </div>
+                    {upload_log_data?.map((data) => {
+                      return (
+                        <div
+                          key={data?.id}
+                          className="grid grid-cols-5 gap-5 text-sm py-2 border-b border-b-[#e9e7e77e]"
+                        >
+                          <div className="hidden"></div>
+                          <div> {data?.uploaded_time} </div>
+                          <div> {data?.user_name} </div>
+                          <div className="col-span-2"> {data?.file_name} </div>
+                          <div>{data?.file_size}</div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </>

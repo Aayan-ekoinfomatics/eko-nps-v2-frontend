@@ -44,7 +44,7 @@ const ConsolidatedDashboard = () => {
       setGoogleReviewsData(response?.data);
     });
   }, []);
-  // trunctae text handler
+  // truncate text handler
   function truncate(string, n) {
     return (
       <span>

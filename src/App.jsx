@@ -12,6 +12,11 @@ import NPSSentimentsTablePage from "./pages/NPSSentimentsTablePage";
 import NPSCommentsTablePage from "./pages/NPSCommentsTablePage";
 import ConsolidatedDashboard from "./pages/ConsolidatedDashboard";
 import Sidebar from "./components/global-components/Sidebar";
+import SurveyDashboard from "./pages/SurveyDashboard";
+import EditSurvey from "./pages/EditSurvey";
+import ShareSurvey from "./pages/ShareSurvey";
+import ResponseSurvey from "./pages/ResponseSurvey";
+import AnalyticsSurvey from "./pages/AnalyticsSurvey";
 
 function App() {
   // local variables
@@ -38,6 +43,7 @@ function App() {
           {/* Routes hidden from non authenticated user / public*/}
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<ConsolidatedDashboard />} />
+            {/* google */}
             <Route
               path="/google-dashboard"
               element={<GoogleReviewsDashboard />}
@@ -50,6 +56,7 @@ function App() {
               path="/google-dashboard/comments"
               element={<ReviewsTablePage />}
             />
+            {/* nps */}
             <Route path="/nps-dashboard" element={<NPSDashboard />} />
             <Route
               path="/nps-dashboard/sentiments"
@@ -58,6 +65,26 @@ function App() {
             <Route
               path="/nps-dashboard/comments"
               element={<NPSCommentsTablePage />}
+            />
+            {/* survey */}
+            <Route path="/survey-dashboard" element={<SurveyDashboard />} />
+            <Route
+              path="/survey-dashboard/survey_edit/:survey_id"
+              element={<EditSurvey />}
+            />
+            <Route
+              path="/survey-dashboard/survey_share/:survey_id"
+              element={<ShareSurvey />}
+            />
+
+            <Route
+              path="/survey-dashboard/survey_responses/:survey_id"
+              element={<ResponseSurvey />}
+            />
+
+            <Route
+              path="/survey-dashboard/survey_analytics/:survey_id"
+              element={<AnalyticsSurvey />}
             />
           </Route>
         </Routes>
