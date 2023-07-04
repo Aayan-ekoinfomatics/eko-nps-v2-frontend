@@ -6,6 +6,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import axios from "axios";
+import { BASE_API_LINK } from "../utils/BaseAPILink";
 
 const SurveyDashboard = () => {
   const [pageData, setPageData] = useState();
@@ -36,17 +38,36 @@ const SurveyDashboard = () => {
     user_details: {},
   };
 
+  // useEffect(() => {
+  //   setPageData(pageData2);
+  // }, []);
+
   useEffect(() => {
-    setPageData(pageData2);
+    axios.post(BASE_API_LINK + `ms/survey_dashboard`)?.then((res) => {
+      console.log(res?.data);
+      setPageData(res?.data);
+    });
   }, []);
 
-  const handleDeleteSurvey = (survey_id) => {
-    let temp = pageData?.existing_surveys?.filter(
-      (survey) => survey?.id !== survey_id
-    );
-    setPageData({
-      ...pageData,
-      existing_surveys: temp,
+  const handleDeleteSurvey = async (survey_id) => {
+    // let temp = pageData?.existing_surveys?.filter(
+    //   (survey) => survey?.id !== survey_id
+    // );
+    // setPageData({
+    //   ...pageData,
+    //   existing_surveys: temp,
+    // });
+
+    await axios
+      .delete(BASE_API_LINK + `ms/survey_delete`, {
+        data: { id: survey_id },
+      })
+      ?.then((res) => {
+        console.log("Delete res:", res?.data);
+      });
+
+    await axios.post(BASE_API_LINK + "ms/survey_dashboard")?.then((res) => {
+      setPageData(res?.data);
     });
   };
   return (
@@ -57,27 +78,28 @@ const SurveyDashboard = () => {
         <div className=" flex flex-col   text-sky-600 font-medium gap-2 border-b  pb-5">
           <div className="w-fit">
             <h1 className=" mb-5">Start a new survey</h1>
-            <Link
-              to={"/survey-dashboard/survey_edit/" + new Date().getTime()}
-              //   onClick={async () => {
-              //     await axios
-              //       .post(BASE_ADDRESS + `survey_create`)
-              //       ?.then((res) => {
-              //         console.log("create survey response", res?.data);
-              //       });
+            <button
+              // to={"/survey-dashboard/survey_edit/" + new Date().getTime()}
 
-              //     await axios
-              //       .post(BASE_ADDRESS + `survey_dashboard`)
-              //       ?.then((res) => {
-              //         setPageData(res?.data);
-              //       });
-              //   }}
+              onClick={async () => {
+                await axios
+                  .post(BASE_API_LINK + `ms/survey_create`)
+                  ?.then((res) => {
+                    console.log("create survey response", res?.data);
+                  });
+
+                await axios
+                  .post(BASE_API_LINK + `ms/survey_dashboard`)
+                  ?.then((res) => {
+                    setPageData(res?.data);
+                  });
+              }}
               className=" flex justify-center items-center w-[150px] aspect-square   bg-sky-100 rounded-md  transition-all duration-200 active:scale-95 hover:bg-sky-200 "
             >
               <span className=" text-sky-600 ">
                 <AddRoundedIcon fontSize="large" className="scale-150 " />
               </span>
-            </Link>
+            </button>
           </div>
         </div>
       </div>

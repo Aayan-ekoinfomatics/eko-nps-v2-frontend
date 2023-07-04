@@ -8,6 +8,8 @@ import SidebarAtom from "../../recoil/global-atoms/SidebarAtom";
 import { useRecoilState } from "recoil";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+import { BASE_API_LINK } from "../../utils/BaseAPILink";
+import axios from "axios";
 
 const Header = () => {
   const [sidebarToggle, setSidebarToggle] = useRecoilState(SidebarAtom);
@@ -20,6 +22,7 @@ const Header = () => {
 
   const [uploadLogStatus, setUploadStatus] = useState(false);
   const [uploadModalStatus, setUploadModalStatus] = useState(false);
+  const [uploadLogData, setUploadData] = useState();
 
   const uploadLogRef = useRef();
 
@@ -133,6 +136,12 @@ const Header = () => {
     },
   ];
 
+  useEffect(() => {
+    axios.post(BASE_API_LINK + `nps/upload_file_log`)?.then((res) => {
+      setUploadData(res?.data);
+    });
+  }, []);
+
   return (
     <div className="w-full p-4 border-t-2 flex justify-between items-center  z-[200] ">
       {/* sidebar toggle */}
@@ -169,7 +178,7 @@ const Header = () => {
                 <AssignmentOutlinedIcon />
               </button>
 
-              {uploadLogStatus && (
+              {/* {uploadLogStatus && (
                 <div className="absolute z-[10] top-[100%] right-0 p-5 rounded-lg bg-white border shadow-lg w-[400px]">
                   <div>
                     <h1 className="text-base font-semibold text-[#1e1e1e] ">
@@ -184,34 +193,26 @@ const Header = () => {
                     </div>
                     <div className="text-xs text-gray-600 ">File Size</div>
                   </div>
-                  {upload_log_data?.map((data) => {
+                  {uploadLogData?.map((data) => {
                     return (
                       <div
                         key={data?.id}
                         className="grid grid-cols-5 gap-5 text-sm py-2 border-b border-b-[#e9e7e77e]"
                       >
                         <div className="hidden"></div>
-                        <div> {data?.uploaded_time} </div>
-                        <div> {data?.user_name} </div>
+                        <div>
+                          {" "}
+                          {data?.date} {data?.time} jjjjj
+                        </div>
+                        <div> {data?.user_id} </div>
                         <div className="col-span-2"> {data?.file_name} </div>
                         <div>{data?.file_size}</div>
                       </div>
                     );
                   })}
                 </div>
-              )}
+              )} */}
             </div>
-
-            {/* file upload delete button  amrit */}
-            {/* <form className=" flex w-fit">
-              <span
-                onClick={delete_records}
-                // className="absolute -top-2 -bottom-2 -left-2 -right-2 w-full opacity-0 z-[-100] cursor-pointer text-white"
-                className="py-1 sm:py-2 px-3 sm:px-4 bg-sky-600 flex justify-center items-center text-center  rounded-md  text-white transition-all duration-200 active:scale-95 cursor-pointer text-[15px]"
-              >
-                X
-              </span>
-            </form> */}
 
             {/* upload file interface vivek */}
             <button
@@ -312,29 +313,32 @@ const Header = () => {
                     </div>
                   </div>
 
+                  {/* upload log */}
                   <div>
                     <div>
                       <h1 className="text-base font-semibold text-[#1e1e1e] ">
                         Upload log
                       </h1>
                     </div>
-                    <div className="grid grid-cols-5 gap-5 text-sm py-2 border-b border-b-[#e9e7e7]">
+                    <div className="grid grid-cols-4 gap-5 text-sm py-2 border-b border-b-[#e9e7e7]">
                       <div className="text-xs text-gray-600 ">Time</div>
-                      <div className="text-xs text-gray-600 ">Username</div>
                       <div className="text-xs text-gray-600 col-span-2">
                         Filename
                       </div>
                       <div className="text-xs text-gray-600 ">File Size</div>
                     </div>
-                    {upload_log_data?.map((data) => {
+                    {uploadLogData?.map((data) => {
                       return (
                         <div
                           key={data?.id}
-                          className="grid grid-cols-5 gap-5 text-sm py-2 border-b border-b-[#e9e7e77e]"
+                          className="grid grid-cols-4 gap-5 text-sm py-2 border-b border-b-[#e9e7e77e]"
                         >
                           <div className="hidden"></div>
-                          <div> {data?.uploaded_time} </div>
-                          <div> {data?.user_name} </div>
+                          <div>
+                            <h1>{data?.date}</h1>
+                            <h3 className="text-xs">{data?.time}</h3>
+                          </div>
+
                           <div className="col-span-2"> {data?.file_name} </div>
                           <div>{data?.file_size}</div>
                         </div>
@@ -344,29 +348,6 @@ const Header = () => {
                 </div>
               </>
             )}
-
-            {/* file upload button  aayyaaaaan */}
-            {/* <form className=" flex w-fit">
-              <label
-                htmlFor="file-upload"
-                className="p-2 sm:py-3 bg-sky-600 text-center sm:w-[50px] rounded-md  text-white transition-all active:scale-95 cursor-pointer relative border"
-              >
-                <input
-                  type="file"
-                  name="file"
-                  id="file-upload"
-                  onChange={changeHandler}
-                  onClick={(event) => (event.target.value = "")}
-                  accept={".csv, .xlsx"}
-                  placeholder="upload"
-                  className="absolute -top-2 -bottom-2 -left-2 -right-2 w-full opacity-0 z-[-100] cursor-pointer"
-                />
-
-                <div className="flex flex-col justify-center items-center">
-                  <FileUploadOutlinedIcon fontSize="small" />
-                </div>
-              </label>
-            </form> */}
           </div>
         )}
       </div>

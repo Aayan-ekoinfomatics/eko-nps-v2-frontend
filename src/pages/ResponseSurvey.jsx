@@ -6,6 +6,9 @@ import Header from "../components/global-components/Header";
 import { tabList } from "../helpers/tabList";
 // icons
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import zIndex from "@mui/material/styles/zIndex";
+import { BASE_API_LINK } from "../utils/BaseAPILink";
+import axios from "axios";
 
 const ResponseSurvey = () => {
   // local variables
@@ -29,7 +32,15 @@ const ResponseSurvey = () => {
   };
 
   useEffect(() => {
-    setPageData(pageData4);
+    // setPageData(pageData4);
+    axios
+      ?.post(BASE_API_LINK + "ms/survey_response_data", {
+        survey_id: params?.survey_id,
+      })
+      ?.then((res) => {
+        console.log(res?.data);
+        setPageData(res?.data);
+      });
   }, []);
   return (
     <div>
@@ -51,7 +62,7 @@ const ResponseSurvey = () => {
             </Link>
           </div>
           {/* tabs */}
-          <div className="flex-1 flex justify-center items-center gap-5 ">
+          <div className="flex-1 flex justify-center items-center gap-5">
             {tabList?.map((data, i) => {
               return (
                 <Link

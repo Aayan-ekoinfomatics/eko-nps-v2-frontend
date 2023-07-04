@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 // components
 import Header from "../components/global-components/Header";
@@ -9,6 +9,8 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import SendAndArchiveRoundedIcon from "@mui/icons-material/SendAndArchiveRounded";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { BASE_API_LINK } from "../utils/BaseAPILink";
+import axios from "axios";
 
 const ShareSurvey = () => {
   // local variables
@@ -23,6 +25,30 @@ const ShareSurvey = () => {
       setFile(e.target.files[0]);
     }
   };
+
+  useEffect(() => {
+    let formData = new FormData();
+    formData.append("file", file);
+
+    if (!file) {
+      return;
+    }
+
+    // 👇 Uploading the file using the axios API to the server
+    axios.post(BASE_API_LINK + "ms/excel_email_list", formData)?.then((res) => {
+      console.log("file upload res", res?.data);
+      setEmails(res?.data?.emails);
+    });
+
+    return () => {
+      setFile();
+    };
+  }, [file]);
+
+  // copy link functions
+  function copyText(entryText) {
+    navigator.clipboard.writeText(entryText);
+  }
 
   return (
     <div>
@@ -90,9 +116,11 @@ const ShareSurvey = () => {
 
             <button
               title="Copy link to share"
-              //   onClick={() =>
-              //     copyText(`${BASE_ADDRESS_FE}public_survey/${params?.survey_id}`)
-              //   }
+              onClick={() =>
+                copyText(
+                  `https://nlp.andaal.com/public-survey/${params?.survey_id}`
+                )
+              }
             >
               <ContentCopyRoundedIcon className="text-sky-600" />
             </button>
@@ -101,14 +129,15 @@ const ShareSurvey = () => {
           <div className="p-3 border rounded-lg mt-5 text-gray-800 flex justify-between items-center gap-2">
             <span>
               {/* {BASE_ADDRESS_FE}public_survey/{params?.survey_id} */}
-              http://localhost:8080/public-survey/123
+              https://nlp.andaal.com/public-survey/{params?.survey_id}
             </span>
-            {/* <Link
+            <Link
               target="_blank"
-              to={`${BASE_ADDRESS_FE}public_survey/${params?.survey_id}`}
-            > */}
-            <OpenInNewIcon className="text-sky-600" />
-            {/* </Link> */}
+              // to={`https://nlp.andaal.com/public-survey/${params?.survey_id}`}
+              to={`/public-survey/${params?.survey_id}`}
+            >
+              <OpenInNewIcon className="text-sky-600" />
+            </Link>
           </div>
         </div>
 
@@ -141,21 +170,21 @@ const ShareSurvey = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              //   const formData = new FormData();
-              //   formData?.append("emails", emails?.toString());
-              //   formData?.append("subject", subject);
-              //   formData?.append("message", message);
-              //   axios
-              //     ?.post(BASE_ADDRESS + "send_email", formData)
-              //     ?.then((res) => {
-              //       console.log("res from send email:", res?.data);
+              const formData = new FormData();
+              formData?.append("emails", emails?.toString());
+              formData?.append("subject", subject);
+              formData?.append("message", message);
+              axios
+                ?.post(BASE_API_LINK + "ms/send_email", formData)
+                ?.then((res) => {
+                  console.log("res from send email:", res?.data);
 
-              //       setEmails("");
-              //       setSubject("");
-              //       setMessage("");
+                  setEmails("");
+                  setSubject("");
+                  setMessage("");
 
-              //       alert("Email sent successfully!");
-              //     });
+                  alert("Email sent successfully!");
+                });
             }}
           >
             <div className="mb-5">

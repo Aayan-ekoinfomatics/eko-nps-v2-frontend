@@ -17,6 +17,7 @@ import EditSurvey from "./pages/EditSurvey";
 import ShareSurvey from "./pages/ShareSurvey";
 import ResponseSurvey from "./pages/ResponseSurvey";
 import AnalyticsSurvey from "./pages/AnalyticsSurvey";
+import PublicSurvey from "./pages/PublicSurvey";
 
 function App() {
   // local variables
@@ -25,11 +26,15 @@ function App() {
   return (
     <div className="font-poppins ">
       {/* conditional rendering of sidebar */}
-      {location?.pathname?.includes("/login") ? null : <Sidebar />}
+      {location?.pathname?.includes("/login") ||
+      location?.pathname?.includes("public-survey") ? null : (
+        <Sidebar />
+      )}
       {/* changing padding of main content according to the pathname */}
       <div
         className={`${
-          location?.pathname?.includes("/login")
+          location?.pathname?.includes("/login") ||
+          location?.pathname?.includes("public-survey")
             ? ""
             : "sm:pl-[60px] lg:pl-[200px] 2xl:pl-[230px]"
         }`}
@@ -85,6 +90,11 @@ function App() {
             <Route
               path="/survey-dashboard/survey_analytics/:survey_id"
               element={<AnalyticsSurvey />}
+            />
+
+            <Route
+              path="/public-survey/:survey_id"
+              element={<PublicSurvey />}
             />
           </Route>
         </Routes>

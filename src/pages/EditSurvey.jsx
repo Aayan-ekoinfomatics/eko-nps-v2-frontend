@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 // components
 import Header from "../components/global-components/Header";
@@ -12,6 +12,8 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import Rating from "@mui/material/Rating";
 import { styled } from "@mui/material/styles";
 import { tabList } from "../helpers/tabList";
+import { BASE_API_LINK } from "../utils/BaseAPILink";
+import axios from "axios";
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
     color: "#0284c7",
@@ -81,9 +83,37 @@ const EditSurvey = () => {
     ],
   };
 
-  const [pageData, setPageData] = useState(mockPageData);
+  const [pageData, setPageData] = useState();
   const [activeInputId, setActiveInputId] = useState();
   const [changeQuestionId, setChangeQuestionId] = useState();
+
+  useEffect(() => {
+    console.log("params from question tab:", params);
+    axios
+      ?.post(BASE_API_LINK + "ms/survey_edit", {
+        survey_id: params?.survey_id,
+      })
+      ?.then((res) => {
+        console.log("questions res:", res?.data);
+        setPageData(res?.data);
+      });
+  }, [params]);
+
+  useEffect(() => {
+    console.log("PageData:", pageData);
+  }, [pageData]);
+
+  const handleEdit = () => {
+    axios
+      ?.put(BASE_API_LINK + "ms/survey_edit", {
+        data: pageData,
+      })
+      ?.then((res) => {
+        console.log("edit res:", res?.data);
+        // setPageData(res?.data);
+      });
+  };
+
   return (
     <div className="">
       <Header />
@@ -126,6 +156,13 @@ const EditSurvey = () => {
           <div>
             <Link
               to={"/survey-dashboard/survey_share/" + params?.survey_id}
+              onClick={() => {
+                axios
+                  .put(BASE_API_LINK + "ms/survey_edit", pageData)
+                  ?.then((res) => {
+                    console.log("create survey response", res?.data);
+                  });
+              }}
               className="mb-2 px-10 py-3 bg-sky-600 hover:bg-sky-700 text-white rounded-lg active:scale-95 transition-all  text-xl flex items-center justify-center gap-1 "
             >
               <span>Next</span>

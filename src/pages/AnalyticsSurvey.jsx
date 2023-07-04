@@ -27,6 +27,8 @@ import {
   YAxis,
 } from "recharts";
 import { analyticsData } from "../helpers/analyticsData";
+import { BASE_API_LINK } from "../utils/BaseAPILink";
+import axios from "axios";
 
 const AnalyticsSurvey = () => {
   const params = useParams();
@@ -54,7 +56,16 @@ const AnalyticsSurvey = () => {
   ]);
 
   useEffect(() => {
-    setPageData(analyticsData);
+    // setPageData(analyticsData);
+
+    axios
+      .post(BASE_API_LINK + "ms/survey_analytics", {
+        survey_id: params?.survey_id,
+      })
+      ?.then((res) => {
+        console.log("########## analytics page response ##########", res?.data);
+        setPageData(res?.data);
+      });
   }, []);
 
   return (
