@@ -22,7 +22,7 @@ import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlin
 
 const GoogleRatingsAndSentimentOverTime = () => {
   const typesOfGraph = [
-    { label: "Avg Ratings", color: "#009DFF" },
+    { label: "Avg Ratings", color: "#6f2da8" },
     { label: "NSS", color: "#009DFF" },
   ];
   const [graphName, setGraphName] = useState("NSS");
@@ -147,7 +147,7 @@ const GoogleRatingsAndSentimentOverTime = () => {
 
           <div className=" items-center gap-5 justify-end mb-2 hidden sm:flex ">
             <div className="flex items-center gap-1">
-              <div className="bg-[#009DFF] h-[8px] w-[8px] rounded-full"></div>
+              <div className="bg-[#6f2da8] h-[8px] w-[8px] rounded-full"></div>
               <div className="text-[12px] opacity-80"> Avg Rating</div>
             </div>
             <div className="flex items-center gap-1">
@@ -166,8 +166,8 @@ const GoogleRatingsAndSentimentOverTime = () => {
               >
                 <defs>
                   <linearGradient id="nssGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#009DFF" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#009DFF" stopOpacity={0.05} />
+                    <stop offset="5%" stopColor="#6f2da8" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#6f2da8" stopOpacity={0.05} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid
@@ -198,7 +198,7 @@ const GoogleRatingsAndSentimentOverTime = () => {
                     type="monotone"
                     name="sentiments"
                     dataKey="avg_rating"
-                    stroke="#0094E0"
+                    stroke="#6f2da8"
                     dot={false}
                     strokeWidth={4}
                     fill="url(#nssGradient)"

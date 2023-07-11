@@ -10,6 +10,7 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { BASE_API_LINK } from "../../utils/BaseAPILink";
 import axios from "axios";
+import logo from "../../assets/img/NPS Dashboard/logoCCD.png";
 
 const Header = () => {
   const [sidebarToggle, setSidebarToggle] = useRecoilState(SidebarAtom);
@@ -155,13 +156,17 @@ const Header = () => {
       </div>
 
       {/* calender */}
-      <div className="w-fit xl:w-full max-w-[250px] rounded-[10px] border p-1.5 md:p-3 text-[14px] flex justify-center items-center gap-5 bg-sky-100">
+      {/* <div className="w-fit xl:w-full max-w-[250px] rounded-[10px] border p-1.5 md:p-3 text-[14px] flex justify-center items-center gap-5 bg-sky-100">
         <span>
           <EventIcon className="text-sky-700" />
         </span>{" "}
         <span className="text-sky-700 hidden xl:inline-block font-medium">
           Jan 2023 - Nov 2023
         </span>
+      </div> */}
+
+      <div>
+        <img src={logo} alt="ccd logo" />
       </div>
 
       {/*file upload and delete buttons flex */}
@@ -234,7 +239,7 @@ const Header = () => {
                       Upload Data
                     </h1>
 
-                    <form className=" flex  justify-center items-center w-full border-2 border-dashed ">
+                    <form className=" flex  justify-center items-center w-full border-2 border-dashed">
                       <label
                         htmlFor="file-upload"
                         className=" relative  text-[#1e1e1e] w-full p-5 cursor-pointer"
@@ -255,13 +260,12 @@ const Header = () => {
                             fontSize="large"
                             className="text-gray-400"
                           />
-
                           <p className="text-sm text-gray-500">Select a file</p>
                         </div>
 
                         <div className="mt-5  w-fit mx-auto">
-                          <h1 className="flex items-center gap-2 ">
-                            <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                          <h1 className="flex items-center gap-2">
+                            <span className="font-semibold text-sm w-[100px] text-gray-400">
                               Size
                             </span>
                             :
@@ -290,8 +294,8 @@ const Header = () => {
                             </span>
                           </h1>
 
-                          <h1 className="flex items-center gap-2 ">
-                            <span className="font-semibold text-sm w-[100px] text-gray-400 ">
+                          <h1 className="flex items-center gap-2">
+                            <span className="font-semibold text-sm w-[100px] text-gray-400">
                               Date Format
                             </span>
                             :
