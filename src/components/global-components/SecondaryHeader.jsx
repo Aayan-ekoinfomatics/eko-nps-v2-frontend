@@ -3,11 +3,13 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { useRecoilState } from "recoil";
 import SidebarAtom from "../../recoil/global-atoms/SidebarAtom";
-import logo from "../../assets/img/NPS Dashboard/logoCCD.png";
+
+import { userList } from "../../utils/userIdList";
+import { useNavigate } from "react-router-dom";
 
 const SecondaryHeader = () => {
   const [sidebarToggle, setSidebarToggle] = useRecoilState(SidebarAtom);
-
+  const navigate = useNavigate();
   const logout = () => {
     localStorage?.clear();
     navigate("/login");
@@ -26,7 +28,11 @@ const SecondaryHeader = () => {
         </div>
 
         <div>
-          <img src={logo} alt="ccd logo" className="w-[45px]" />
+          <img
+            src={userList[Number(localStorage?.getItem("userId")) - 1]?.img}
+            alt="ccd logo"
+            className="w-full max-w-[150px]"
+          />
         </div>
       </div>
 

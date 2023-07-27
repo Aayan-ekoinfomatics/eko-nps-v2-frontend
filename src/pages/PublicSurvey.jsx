@@ -83,10 +83,6 @@ const PublicSurvey = () => {
     // setPageData(mockPageData);
   }, []);
 
-  useEffect(() => {
-    console.log("pageData: ", pageData);
-  }, [pageData]);
-
   return (
     <div className="bg-sky-50 min-h-screen">
       <div className="w-[60%] mx-auto pt-5">
@@ -101,7 +97,7 @@ const PublicSurvey = () => {
           </div>
         ) : (
           <div>
-            <div className="bg-white rounded-lg text-gray-700 p-5 mb-5 ">
+            <div className="bg-white rounded-lg text-gray-700 p-5 mb-5">
               <h1 className="text-4xl font-semibold mb-5">
                 {pageData?.survey_basic_detail?.name}
               </h1>

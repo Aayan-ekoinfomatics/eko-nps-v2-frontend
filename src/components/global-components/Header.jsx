@@ -11,6 +11,7 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { BASE_API_LINK } from "../../utils/BaseAPILink";
 import axios from "axios";
 import logo from "../../assets/img/NPS Dashboard/logoCCD.png";
+import { userList } from "../../utils/userIdList";
 
 const Header = () => {
   const [sidebarToggle, setSidebarToggle] = useRecoilState(SidebarAtom);
@@ -138,7 +139,7 @@ const Header = () => {
   ];
 
   useEffect(() => {
-    axios.post(BASE_API_LINK + `nps/upload_file_log`)?.then((res) => {
+    axios.post(VITE_BASE_LINK + `nps/upload_file_log`)?.then((res) => {
       setUploadData(res?.data);
     });
   }, []);
@@ -166,7 +167,11 @@ const Header = () => {
       </div> */}
 
       <div>
-        <img src={logo} alt="ccd logo" />
+        <img
+          src={userList[Number(localStorage?.getItem("userId")) - 1]?.img}
+          alt="ccd logo"
+          className="w-full max-w-[150px]"
+        />
       </div>
 
       {/*file upload and delete buttons flex */}

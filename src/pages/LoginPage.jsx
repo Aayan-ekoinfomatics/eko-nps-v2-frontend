@@ -25,6 +25,28 @@ const LoginPage = () => {
   const login = (e) => {
     e?.preventDefault();
     setLoding(true);
+
+    axios
+      .post(VITE_BASE_LINK + "google/login", loginData)
+      .then((response) => {
+        console.log("login data main:", response?.data);
+        if (response?.data?.status) {
+          localStorage?.setItem("token", response?.data?.user_data?.token);
+
+          localStorage?.setItem("userId", response?.data?.data?.id);
+          navigate("/");
+          setLoding(false);
+        } else {
+          setLoding(false);
+          setErrorText(response?.data?.message);
+        }
+      })
+      .catch((error) => {
+        setLoding(false);
+        setErrorText(error.message);
+      });
+
+    // amrits axios call
     axios
       .post(VITE_BASE_LINK + "auth/login", loginData)
       .then((response) => {
