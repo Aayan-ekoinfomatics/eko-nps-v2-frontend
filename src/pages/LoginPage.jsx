@@ -26,25 +26,25 @@ const LoginPage = () => {
     e?.preventDefault();
     setLoding(true);
 
-    axios
-      .post(VITE_BASE_LINK + "google/login", loginData)
-      .then((response) => {
-        console.log("login data main:", response?.data);
-        if (response?.data?.status) {
-          localStorage?.setItem("token", response?.data?.user_data?.token);
+    // axios
+    //   .post(VITE_BASE_LINK + "google/login", loginData)
+    //   .then((response) => {
+    //     console.log("login data main:", response?.data);
+    //     if (response?.data?.status) {
+    //       localStorage?.setItem("token", response?.data?.user_data?.token);
 
-          localStorage?.setItem("userId", response?.data?.data?.id);
-          navigate("/");
-          setLoding(false);
-        } else {
-          setLoding(false);
-          setErrorText(response?.data?.message);
-        }
-      })
-      .catch((error) => {
-        setLoding(false);
-        setErrorText(error.message);
-      });
+    //       localStorage?.setItem("userId", response?.data?.data?.id);
+    //       navigate("/");
+    //       setLoding(false);
+    //     } else {
+    //       setLoding(false);
+    //       setErrorText(response?.data?.message);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     setLoding(false);
+    //     setErrorText(error.message);
+    //   });
 
     // amrits axios call
     axios
@@ -52,9 +52,14 @@ const LoginPage = () => {
       .then((response) => {
         console.log(response?.data);
         if (response?.data?.status) {
+          localStorage?.setItem("userId", response?.data?.id);
           localStorage?.setItem("token", response?.data?.user_data?.token);
           navigate("/");
           setLoding(false);
+        }
+        if (response?.data?.message === "something went wrong!") {
+          setLoding(false);
+          setErrorText(response?.data?.message);
         }
       })
       .catch((error) => {
@@ -155,7 +160,7 @@ const LoginPage = () => {
               />
               <div className="w-full absolute -top-5 flex justify-center">
                 <h1 className="text-center text-2xl font-[700] text-gray-700">
-                  WELCOME TO CxPro
+                  Welcome to AlgoPro
                 </h1>
               </div>
             </div>
