@@ -169,8 +169,8 @@ const Header = () => {
       <div>
         <img
           src={userList[Number(localStorage?.getItem("userId")) - 1]?.img}
-          alt="ccd logo"
-          className="w-full max-w-[150px]"
+          alt={userList[Number(localStorage?.getItem("userId")) - 1]?.name}
+          className="w-full max-w-[400px]"
         />
       </div>
 
